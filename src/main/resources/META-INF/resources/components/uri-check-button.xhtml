@@ -1,0 +1,44 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" 
+	xmlns:p="http://primefaces.org/ui"
+   xmlns:f = "http://java.sun.com/jsf/core"
+   xmlns:composite = "http://java.sun.com/jsf/composite">
+   
+   <composite:interface>
+   	   <composite:attribute name = "value" />
+   </composite:interface>
+   
+   <composite:implementation>
+		<b:form>
+			<b:modal id="modalCheckURI" title="URI Check" styleClass="modalCheckUriClass">
+				<b:container fluid="true">
+				<b:row>
+					<b:column medium-screen="12" >
+					   <b:message id="messageText" for="uri-error-message" />
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column medium-screen="12" >
+						<b:inputText label="Uri:" placeholder="uri definition"  value="#{uriCheckController.uri}"/>
+					</b:column>
+				</b:row>
+				</b:container>
+				<f:facet name="footer">
+				 
+					<b:commandButton value="Close"    ajax="true" update="messageText"  onclick="$('.modalCheckUriClass').hide()" action="#{uriCheckController.init()}" />
+					<b:commandButton value="Check"   look="primary"  ajax="true" update="messageText"  action="#{uriCheckController.check()}" />
+				</f:facet>
+			</b:modal>
+		</b:form>
+ 
+		<b:button value="#{cc.attrs.value}" look="primary" style="width:100%"
+			onclick=" $('.modalCheckUriClass').modal()"  />
+	
+	</composite:implementation>
+</html>

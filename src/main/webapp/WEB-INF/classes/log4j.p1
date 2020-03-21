@@ -1,0 +1,40 @@
+
+#
+
+# The logging properties used during tests..
+
+#
+
+log4j.rootLogger=INFO, out, stdout
+#, email
+
+
+
+# CONSOLE appender not used by default
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d [%-15.15t] %-5p %-30.30c{1} - %m%n
+
+
+
+# File appender
+log4j.appender.out=org.apache.log4j.FileAppender
+log4j.appender.out.layout=org.apache.log4j.PatternLayout
+log4j.appender.out.layout.ConversionPattern=%d [%-15.15t] %-5p %-30.30c{1} - %m%n
+log4j.appender.out.file=logs/CassiopeSupplier.log
+log4j.appender.out.append=true
+
+# SMTP appender
+#log4j.appender.email=org.apache.log4j.net.SMTPAppender
+#log4j.appender.email.SMTPHost=192.168.1.25
+#log4j.appender.email.SMTPUsername=art@ie6winxp
+#log4j.appender.email.SMTPPort=25
+#log4j.appender.email.SMTPPassword=111
+#log4j.appender.email.From=art@ie6winxp
+#log4j.appender.email.To=art@ie6winxp
+#log4j.appender.email.Subject=WatcherApp ERROR
+#log4j.appender.email.BufferSize=1
+#log4j.appender.TextProcessor.Threshold=ERROR
+## log4j.appender.email.EvaluatorClass=TriggerLogEvent
+#log4j.appender.email.layout=org.apache.log4j.PatternLayout
+#log4j.appender.email.layout.ConversionPattern=%d [%-15.15t] %-5p %-30.30c{1} - %m%n

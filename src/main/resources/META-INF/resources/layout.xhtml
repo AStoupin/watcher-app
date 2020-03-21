@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui" 
+      xmlns:p="http://primefaces.org/ui">
+<f:view >
+     
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <h:outputStylesheet library="styles" name="test.css"  />
+        <title>  <ui:insert name="title" /></title>
+
+
+    
+        <script>
+		    $.blockUI.defaults.css.width = '20%';
+		    $.blockUI.defaults.css.left = '40%';
+		    $.blockUI.defaults.css.height = '5em';
+		    $.blockUI.defaults.css.borderRadius = '10px';
+		    $.blockUI.defaults.overlayCSS.opacity = 0.5;
+		    $.blockUI.defaults.message = '<div style="padding-top:1em"><b:spinner name="circle-o-notch" size="2x" /> Please wait...</div>';
+	    </script>
+    </h:head>
+    <h:body>
+        <b:container fluid="true">
+           <b:row>
+			<b:column medium-screen="12">
+				<b:navBar  fixed="top" sticky="true" brand="watcher-app ${routeListController.version}" brandHref="/" fluid="true">
+					<b:navbarLinks>
+					    <b:navLink value="Route monitor" href="/monitor"></b:navLink>
+					</b:navbarLinks>    
+				</b:navBar>
+			</b:column>
+			</b:row>
+			<b:row>
+				<b:column medium-screen="12">
+				<br/>
+				</b:column>
+			</b:row>			
+			<b:row>
+				<b:column medium-screen="12">
+				<br/>
+				</b:column>
+			</b:row>			
+			<b:row>
+				<b:column medium-screen="12">
+				<br/>
+				</b:column>
+			</b:row>			
+			
+			<b:row>
+                <ui:insert name="content" />
+            </b:row>
+        </b:container>
+    </h:body>
+</f:view>
+</html>

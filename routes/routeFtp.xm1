@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<routes xmlns="http://camel.apache.org/schema/spring">
+
+    <route customId="true" id="My-FTP-Transfer" >
+
+        <!-- <from uri="quartz2://report?trigger.repeatInterval=10000"/>
+			<setBody>
+			  <simple trim="false">You get some trailing whitespace characters.     </simple>
+			</setBody>
+		<enrich uri="ftp://test@ie6winxp?password=test&amp;delay=10000&amp;move=.done&amp;moveFailed=.error&amp;include=.*\.txt&amp;throwExceptionOnConnectFailed=true"/>
+		 -->
+        
+        <!--  <from uri="file:/c:/Temp/1" />
+          <bean ref="myMessage" />
+			-->
+		<!-- 		        
+		<onException>
+		  <exception>org.apache.camel.component.file.GenericFileOperationFailedException</exception>
+		  <exception>java.net.SocketTimeoutException</exception>
+		    <handled>
+                <constant>true</constant> 
+            </handled>		
+		
+			<log message="Failure fired1"/>
+		</onException>
+		-->
+        
+		 <from uri="ftp://test@ie6winxp?password=test&amp;delay=10000&amp;move=.done&amp;moveFailed=.error&amp;include=.*\.txt&amp;localWorkDirectory=/temp&amp;throwExceptionOnConnectFailed=true&amp;consumer.bridgeErrorHandler=true"/> 
+	    <!--<log message="Recieved ${headers.CamelFileHost} /  ${header.CamelFileAbsolutePath}" />-->
+		<choice>
+			<when>
+				<simple>${header.CamelFileAbsolutePath} regex '.*[AUD].*\.*'</simple>
+			       <to uri="file:/c:/Temp/2" />
+			       <!-- log message="Proccessed ${headers.CamelFileHost} ${header.CamelFileAbsolutePath}  =====&gt; ${headers.CamelFileNameProduced}" /> -->
+			         				
+			</when>
+			<otherwise>
+			       <to uri="file:/c:/Temp/3" />
+			       <!--<log message="Proccessed ${headers.CamelFileHost} ${header.CamelFileAbsolutePath}  =====&gt; ${headers.CamelFileNameProduced}" />-->
+			</otherwise>
+		</choice>		
+      </route>
+  </routes>

@@ -1,0 +1,219 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>Cassiope</groupId>
+  <artifactId>CassiopeSupplier</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+   
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+<!--  		<version>2.0.4.RELEASE</version>
+ 		 -->
+		 <version>1.5.4.RELEASE</version>  
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>  
+  
+  <properties>
+    <java.version>1.8</java.version>
+	<camel.version>2.22.0</camel.version>    
+</properties>
+
+  <dependencies>
+	    <!-- Camel Spring Boot Starter dependency -->
+
+   <!-- <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-servlet-starter</artifactId>
+        <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-jackson-starter</artifactId>
+        <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-swagger-java-starter</artifactId>
+        <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-spring-boot-starter</artifactId>
+        <version>${camel.version}</version>
+    </dependency>    
+ -->
+<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-actuator -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-actuator</artifactId>
+
+</dependency>
+
+
+
+<!--  --> 
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot</artifactId>
+		</dependency>		
+	   
+	     
+		<!-- Camel FTP support -->
+		<!-- <dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-ftp</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		 -->
+		<!-- Camel SMB support -->
+<!-- 		<dependency>
+		    <groupId>org.apache-extras.camel-extra</groupId>
+		    <artifactId>camel-jcifs</artifactId>
+		    <version>${camel.version}</version>
+		</dependency> 
+ -->
+	  
+  <!-- For Spring Boot app to run continuously it has to be run in a container, otherwise it stops immediately after finishing App#main(..) thread execution -->
+	<dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+		<exclusions>
+	        <exclusion>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+	        </exclusion>
+	        <exclusion>
+	         <groupId>org.slf4j</groupId>
+   			<artifactId>log4j-over-slf4j</artifactId>
+	        </exclusion>
+	    </exclusions>		     
+    </dependency>	 	    	  
+
+
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-log4j2</artifactId>
+	</dependency>
+	
+	<!-- Test dependency -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<scope>test</scope>
+	</dependency>	
+
+   <dependency>
+      <groupId>javax.xml</groupId>
+      <artifactId>jsr173</artifactId>
+      <version>1.0</version>
+    </dependency>
+
+<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>1.2</version>
+	</dependency>
+
+
+	<dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok</artifactId>
+	    <version>1.16.16</version>
+	</dependency>
+    
+    <dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-data-jpa</artifactId>
+	 </dependency>    
+	
+	<dependency>
+	    <groupId>org.apache.myfaces.core</groupId>
+	    <artifactId>myfaces-impl</artifactId>
+	    <version>2.2.12</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.myfaces.core</groupId>
+	    <artifactId>myfaces-api</artifactId>
+	    <version>2.2.12</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.tomcat.embed</groupId>
+	    <artifactId>tomcat-embed-jasper</artifactId>
+	</dependency> 
+	<dependency>
+	    <groupId>org.ocpsoft.rewrite</groupId>
+	    <artifactId>rewrite-servlet</artifactId>
+	    <version>3.4.1.Final</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.ocpsoft.rewrite</groupId>
+	    <artifactId>rewrite-integration-faces</artifactId>
+	    <version>3.4.1.Final</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.ocpsoft.rewrite</groupId>
+	    <artifactId>rewrite-config-prettyfaces</artifactId>
+	    <version>3.4.1.Final</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.primefaces</groupId>
+	    <artifactId>primefaces</artifactId>
+	    <version>6.2</version>
+	</dependency>  
+
+	<dependency>
+		<groupId>org.primefaces.themes</groupId>
+		<artifactId>bluesky</artifactId>
+		<version>1.0.10</version>
+	</dependency>	
+
+	
+	
+		<dependency>
+			<groupId>io.hawt</groupId>
+			<artifactId>hawtio-springboot</artifactId>
+			<version>1.5.6</version>
+			
+		</dependency>
+		
+		<dependency>
+			<groupId>io.hawt</groupId>
+			<artifactId>hawtio-core</artifactId>
+			<version>1.5.6</version>
+	  		
+		</dependency>
+		
+		 <dependency>
+			<groupId>io.hawt</groupId>
+			<artifactId>hawtio-insight-log</artifactId>
+			<version>1.5.6</version>
+		    <exclusions>
+		      <exclusion> 
+				  <groupId>ch.qos.logback</groupId>
+				  <artifactId>logback-classic</artifactId>
+		      </exclusion>
+	    		      
+		         <exclusion>    
+		          <groupId>org.slf4j</groupId>
+    				<artifactId>slf4j-log4j12</artifactId>
+    		      </exclusion>
+		    </exclusions>   			
+		</dependency> 		
+					
+  </dependencies>
+  
+	<build>
+	  <outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+	  <!-- plugins... -->
+	</build>    
+	
+ <repositories>
+	<repository>
+		<id>prime-repo</id>
+		<name>Prime Repo</name>
+		<url>http://repository.primefaces.org</url>
+	</repository>
+</repositories> 	
+</project>

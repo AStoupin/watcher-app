@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns="http://camel.apache.org/schema/spring" >
+    <route customId="true" id="My-Smb-Transfer" >
+    
+	  <from  uri="smb://jv;stupina:3472Ans!1234f`@sdws01/JTextConnJVPREPROD/audit?move=.done&amp;delay=10000&amp;include=.*\.txt"/>
+	    <log  message="Recieved ${headers.CamelFileHost} ${header.CamelFileAbsolutePath}" />
+
+      <to uri="file:/c:/Temp/2" description="Источник2"/>
+       <log message="Proccessed ${headers.CamelFileHost} ${header.CamelFileAbsolutePath}  =====&gt; ${headers.CamelFileHost} ${headers.CamelFileNameProduced}" />
+       <log message="Proccessed ${headers} " />
+         
+    </route>
+
+
+</routes>

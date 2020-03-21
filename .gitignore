@@ -1,0 +1,8 @@
+/target/
+/logs/
+/webapp/
+/CassiopeSupplier.iml
+/RemoteSystemsTempFiles/
+/.settings/
+/.metadata/
+/.idea/

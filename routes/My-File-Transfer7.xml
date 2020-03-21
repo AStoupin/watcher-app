@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<route xmlns="http://camel.apache.org/schema/spring" autoStartup="false" customId="true" description=" asashdljh asljfh lasdj1111111 " id="My-File-Transfer7">
+    <from customId="true" uri="file:/c:/Temp/2?move=.done&amp;moveFailed=.error&amp;delay=3000&amp;include=(aaa|bbb).*\.txt"/>
+    <to customId="false" id="to9" uri="file:/c:/Temp/3?doneFileName=flag"/>
+</route>
+
