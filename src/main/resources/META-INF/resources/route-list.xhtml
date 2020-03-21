@@ -70,25 +70,16 @@
 							<b:dataTableColumn label="To" value="#{routeListController.getToInfo(route.id)}" >
 								<f:param  rendered="false" name="blockui.disabled" value="true"/>
 							</b:dataTableColumn>
-							
-							
+							<b:dataTableColumn label="Failures" value="#{routeListController.getFailuresCount(route.id)}" />
+
+
 						  </b:dataTable>
 					</b:column>
 				</b:row>
 				
 				
-				<b:row>
-					<b:column medium-screen="12">
-					<p:timeline id="timeline" value="#{routeListController.model}" 
-			            editable="false" eventMargin="10" eventMarginAxis="0" 
-			            start="#{routeListController.start}" 
-			            end="#{routeListController.end}" 
-			            showNavigation="true" showButtonNew="false" 
-			            axisOnTop="true" stackEvents="false"/>
-			            
-					</b:column>
-				</b:row>
-						</h:form>
+
+			</h:form>
 		 </b:panel>
 	</ui:define>
 </ui:composition>

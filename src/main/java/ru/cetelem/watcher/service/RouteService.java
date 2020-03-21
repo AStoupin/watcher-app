@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBException;
@@ -17,7 +16,6 @@ import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.spring.boot.CamelConfigurationProperties;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +29,10 @@ public class RouteService {
 	private static final Logger log = LoggerFactory.getLogger(RouteService.class);
 	private final String DISABLED_EXT = ".disabled";
 	private final String ENABLED_EXT = ".xml";
+
 	@Autowired
-	CamelConfigurationProperties camelConfigurationProperties;
+	private  RouteDefinitionEnricher routeDefinitionEnricher;
+
 	@Autowired
 	ApplicationContext applicationContext;
 	@Value("${xmlRoutes.directory}")
@@ -44,9 +44,7 @@ public class RouteService {
 	ErrorProcessor errorProcessor;
 	@Autowired
 	CompleteProcessor completeProcessor;
-	//@Autowired
-	//ContainerWideInterceptor containerWideInterceptor;
-	
+
 	@PostConstruct
 	private void init() {
 		start();
@@ -93,9 +91,9 @@ public class RouteService {
 		routeDefinition.getOutputs().forEach(f -> {
 			f.setCustomId(false);
 		});
-				
-		cleanRouteDefinition(routeDefinition);
-		enrichRouteDefinition(routeDefinition);
+
+		routeDefinitionEnricher.cleanRouteDefinition(routeDefinition);
+		routeDefinitionEnricher.enrichRouteDefinition(routeDefinition);
 		
 	}
 
@@ -160,54 +158,8 @@ public class RouteService {
 			
 		}
 	}
-	
 
-	private void enrichRouteDefinition(RouteDefinition routeDefinition) {
-		routeDefinition.onException(Exception.class).process(errorProcessor);
-		routeDefinition.onCompletion().process(completeProcessor);
-		
-		if(routeDefinition.getInputs().get(0).getEndpointUri().startsWith("ftp:") &&
-				!StringUtils.contains(routeDefinition.getInputs().get(0).getEndpointUri(), "bridgeErrorHandler")){
-			routeDefinition.getInputs().get(0).setUri(
-					routeDefinition.getInputs().get(0).getEndpointUri() + "&bridgeErrorHandler=true"
-					);
-		}
 
-		if(routeDefinition.getInputs().get(0).getEndpointUri().startsWith("ftp:") &&
-				!StringUtils.contains(routeDefinition.getInputs().get(0).getEndpointUri(), "throwExceptionOnConnectFailed")){
-			routeDefinition.getInputs().get(0).setUri(
-					routeDefinition.getInputs().get(0).getEndpointUri() + "&throwExceptionOnConnectFailed=true"
-					);
-		}
-		
-	}
-	
-	private void cleanRouteDefinition(RouteDefinition routeDefinition) {
-		if(routeDefinition.getInputs().get(0).getEndpointUri().startsWith("ftp:")){
-			routeDefinition.getInputs().get(0).setUri(
-					StringUtils.replace(routeDefinition.getInputs().get(0).getEndpointUri(), "&bridgeErrorHandler=true", "") 
-					);
-		}
-
-		if(routeDefinition.getInputs().get(0).getEndpointUri().startsWith("ftp:")){
-			routeDefinition.getInputs().get(0).setUri(
-					StringUtils.replace(routeDefinition.getInputs().get(0).getEndpointUri(), "&throwExceptionOnConnectFailed=true", "") 
-					);
-		}
-
-		
-		routeDefinition.getOutputs().removeIf(
-				pd->{
-					return pd instanceof org.apache.camel.model.OnExceptionDefinition;
-					}
-			);
-		
-		routeDefinition.getOutputs().removeIf(
-				pd->{
-					return pd instanceof org.apache.camel.model.OnCompletionDefinition;
-					}
-			);		
-	}
 	
 	private void loadRouteDefinitionFromFile(String id) {
 		Resource xmlRoute = findRouteResource(id);
@@ -262,8 +214,8 @@ public class RouteService {
 	public String getRouteDefinitionAsXml(RouteDefinition routeDefinition) {
 		String xml = "";
 		try {
-			
-			cleanRouteDefinition(routeDefinition);
+
+			routeDefinitionEnricher.cleanRouteDefinition(routeDefinition);
 			
 			xml = ModelHelper.dumpModelAsXml(camelContext, routeDefinition);
 		} catch (JAXBException e) {

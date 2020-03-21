@@ -46,7 +46,12 @@ public class RouteStatService {
 		}
 		return result;
 	}
-	
+
+	public long getFailuresById(String routeID) {
+		return Optional.ofNullable(getStatListById(routeID)).orElse(new ArrayList<RouteStatItem>())
+				.stream().filter(ri->!ri.isSuccessed()).count();
+	}
+
 	private void addStatItem(String routeId, RouteStatItem routeStatItem) {
 		List<RouteStatItem> lst = getStatListById(routeId);
 		lst.add(routeStatItem);
@@ -65,4 +70,5 @@ public class RouteStatService {
 					.sorted((si1, si2)->si2.getEventDate().compareTo(si1.getEventDate())).collect(Collectors.toList());
 		return lst;
 	}
+
 }
