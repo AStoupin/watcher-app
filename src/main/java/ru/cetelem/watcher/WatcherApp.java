@@ -28,7 +28,6 @@ import ru.cetelem.watcher.service.ErrorProcessor;
 
 @EnableAutoConfiguration
 @ComponentScan({"ru.cetelem.watcher.web", "ru.cetelem.watcher.service"})
-
 @ImportResource("classpath:camel-context.xml")
 @Configuration
 @RewriteConfiguration

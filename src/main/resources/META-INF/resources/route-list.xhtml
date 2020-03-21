@@ -67,8 +67,8 @@
 							<b:dataTableColumn label="Id" value="#{route.id}" />
 							
 							<b:dataTableColumn label="From" value="#{routeListController.getFromInfo(route.id)}" />
-							<b:dataTableColumn label="To" value="#{routeListController.getToInfo(route.id)}" />
-							<f:param  rendered="false" name="blockui.disabled" value="true"/>
+							<b:dataTableColumn label="To" value="#{routeListController.getToInfo(route.id)}" >
+								<f:param  rendered="false" name="blockui.disabled" value="true"/>
 							</b:dataTableColumn>
 							
 							
