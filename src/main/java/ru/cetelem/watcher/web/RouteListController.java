@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 import ru.cetelem.watcher.service.RouteDefinitionExplorer;
 import ru.cetelem.watcher.service.RouteService;
 import ru.cetelem.watcher.service.RouteStatService;
-
+import org.primefaces.event.SelectEvent;
 
 
 @Scope(value = "application")
@@ -68,8 +68,16 @@ public class RouteListController {
     public List<Route> getRoutes(){
     	return camelContext.getRoutes();
     }
-    
-    
+	List<Route> filteredRoutes;
+
+	public List<Route> getFilteredRoutes(){
+		return filteredRoutes;
+	}
+
+	public void setFilteredRoutes(List<Route> filteredRoutes){
+		this.filteredRoutes = 	filteredRoutes;
+	}
+
     public ServiceStatus getRouteStatus(String id) {
     	
 		return camelContext.getRouteStatus(id);
@@ -91,6 +99,11 @@ public class RouteListController {
 
 		return String.valueOf(routeStatService.getFailuresById(id));
 	}
+
+	public void onRowSelect(SelectEvent event) {
+		setSelectedRouteDefinition((RouteDefinition)event.getObject());
+	}
+
 
 	public void setSelectedRouteDefinition(RouteDefinition selectedRouteDefinition) {
     	this.selectedRoute.setSelectedRouteDefinition(selectedRouteDefinition);
@@ -154,7 +167,7 @@ public class RouteListController {
     	//return "/route-edit.xhtml?faces-redirect=true";
 		return "";
     }
-    
+
     public String edit() throws Exception {
     	if(selectedRoute.getSelectedRouteDefinition()==null)
     		return "";	

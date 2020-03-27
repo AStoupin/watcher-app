@@ -57,10 +57,18 @@ public class RouteMonitorController {
 	
 	public RouteMonitorController(){
 	}
-	
-    public List<RouteStatItem> getRouteStatItems(){
+	private List<RouteStatItem>  routeStatFilteredItems;
+	public List<RouteStatItem> getRouteStatItems(){
     	return routeStatService.getStatList();
     }
+	public List<RouteStatItem> getRouteStatFilteredItems(){
+		return routeStatFilteredItems;
+	}
+	public void setRouteStatFilteredItems(List<RouteStatItem>  routeStatFilteredItems ){
+		this.routeStatFilteredItems = routeStatFilteredItems;
 
-    
+	}
+
+
+
 }

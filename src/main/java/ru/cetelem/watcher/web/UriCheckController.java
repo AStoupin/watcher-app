@@ -1,5 +1,7 @@
 package ru.cetelem.watcher.web;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.faces.application.FacesMessage;
@@ -10,6 +12,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +31,11 @@ public class UriCheckController {
 	UriCheckService uriCheckService;
 	
 	public void init() {
-		uri = "";
+		uri = "Input URI here";
 	}
-	
+
+
+
 	public void check() {
 		String checkResult = uriCheckService.check(getUri());
 		

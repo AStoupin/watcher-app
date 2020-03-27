@@ -1,8 +1,20 @@
 html {
-	
-	//background: #323232	
+
+    background: #323232
 }
 
+
+.ui-outputlabel{
+    color: #bbbbbb;
+}
+.ui-datatable .ui-datatable-header .button-panel {
+    text-align: left !important;
+}
+
+.ui-datatable .ui-datatable-header .search-panel {
+    text-align: right !important;
+
+}
 .pf,
 .pf * {
     -webkit-box-sizing: content-box;
@@ -13,70 +25,49 @@ html {
     margin-bottom:0px;
 }
 
- div.ko-class {  
-     background: #F03030 none !important;  /* red */  
-     border-color: #bd2828 !important;     /* red */  
- }  
-
- div.ok-class {  
-     background: #007053 none !important;  /* green */  
-     border-color: #007053  !important;     /* green */  
- }
- 
-  /* Custom styles for the Timeline */  
- div.timeline-frame {  
-     border-color: #375a7f;  
-     border-radius: 5px;  
-	 opacity: 1; 
- }  
-
- div.timeline-axis {  
-     border-color: #5D99C3;  
-     background-color: #375a7f;  
-     background: #375a7f;
-      opacity: 1 !important;
- }  
-div.timeline-content{
-	background-color: #464545;
-	color: #fff;
-	padding: 0px;
-    margin: 0px;
-}
-div.timeline-groups-text{
-	background-color: #464545;
-	color: #fff;
-	font-size: 15px;	 
-}
-div.timeline-groups-axis-onleft{
-	background-color: #464545;
-	color: #fff;
+div.ko-class {
+    background: #F03030 none !important;  /* red */
+    border-color: #bd2828 !important;     /* red */
 }
 
- div.timeline-groups-axis {  
-     border-color: #5D99C3;  
- }  
+div.ok-class {
+    background: #007053 none !important;  /* green */
+    border-color: #007053  !important;     /* green */
+}
 
- div.timeline-groups-axis-onleft {  
-     border-style: none solid none none;  
- }  
+div.unavailable {
+    background: #F03030 none !important;  /* red */
+    border-color: #bd2828 !important;     /* red */
+}
 
- div.timeline-axis-text {  
-     color: white;  
- }  
+.CodeMirror{
+    border-radius: 3px !important;
+    border: 1px solid #585858 !important;
+	background: #585858	 !important;
 
- div.timeline-event {  
-     color: white !important;  
-     border-radius: 5px !important;  
- }  
+}
+div.CodeMirror-gutter.CodeMirror-linenumbers {
+	background: #323232	 !important;
+}
 
- div.timeline-event-content {  
-     text-shadow: none; 
-	 padding: 2px !important;
-     margin: 0px !important;
-	font-size: 15px;	 
- }  
-
- div.unavailable {  
-     background: #F03030 none !important;  /* red */  
-     border-color: #bd2828 !important;     /* red */  
- }  
+[id$="basic_content"] {
+	margin:0 !important;
+	border:0px  !important;
+	padding: 0 !important;
+}
+div.main-panel{
+margin:0 0 0; 
+border:0px; 
+padding:0px 0 0 0;
+}
+.logo-img{
+	height: 34px;
+	position: 
+	absolute;top: 12px;
+}
+div.logo-app-name{
+	margin:9px 0 0 0; 
+	border:0px; 
+	padding:0px 0 0 0;
+	color:#1ea04c;
+}

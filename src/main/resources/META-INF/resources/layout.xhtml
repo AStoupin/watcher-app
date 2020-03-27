@@ -3,10 +3,10 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui" 
+      xmlns:b="http://bootsfaces.net/ui"
       xmlns:p="http://primefaces.org/ui">
 <f:view >
-     
+
     <h:head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -15,47 +15,43 @@
         <title>  <ui:insert name="title" /></title>
 
 
-    
-        <script>
-		    $.blockUI.defaults.css.width = '20%';
-		    $.blockUI.defaults.css.left = '40%';
-		    $.blockUI.defaults.css.height = '5em';
-		    $.blockUI.defaults.css.borderRadius = '10px';
-		    $.blockUI.defaults.overlayCSS.opacity = 0.5;
-		    $.blockUI.defaults.message = '<div style="padding-top:1em"><b:spinner name="circle-o-notch" size="2x" /> Please wait...</div>';
-	    </script>
     </h:head>
     <h:body>
-        <b:container fluid="true">
-           <b:row>
-			<b:column medium-screen="12">
-				<b:navBar  fixed="top" sticky="true" brand="watcher-app ${routeListController.version}" brandHref="/" fluid="true">
-					<b:navbarLinks>
-					    <b:navLink value="Route monitor" href="/monitor"></b:navLink>
-					</b:navbarLinks>    
-				</b:navBar>
-			</b:column>
-			</b:row>
-			<b:row>
-				<b:column medium-screen="12">
-				<br/>
-				</b:column>
-			</b:row>			
-			<b:row>
-				<b:column medium-screen="12">
-				<br/>
-				</b:column>
-			</b:row>			
-			<b:row>
-				<b:column medium-screen="12">
-				<br/>
-				</b:column>
-			</b:row>			
-			
-			<b:row>
-                <ui:insert name="content" />
-            </b:row>
-        </b:container>
+
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" delay="500" />
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <h:outputText value="In progress..." style="margin:0 0 0; border:0px; padding:0px 0 0 0" />
+        </p:dialog>
+
+
+        <h:form >
+
+               <p:panel id="basic"  >
+			    <div class="ui-g"  >
+				<div class="ui-g-1 main-panel"  >
+			    <img src="/images/logo.png" class="logo-img"/>
+				</div>
+				<div class="ui-g-1 main-panel logo-app-name"  >
+			    <h:outputText value="Watcher-App"   />
+				</div>				
+				<div class="ui-g-10	main-panel" >
+                <p:tabMenu activeIndex="#{param.i}">
+                    <p:menuitem outcome="route-list" value="Route list" icon="pi pi-star">
+                        <f:param name="i" value="0" />
+                    </p:menuitem>
+                    <p:menuitem outcome="route-monitor" value="Route monitor"  icon="pi pi-search">
+                        <f:param name="i" value="1" />
+                    </p:menuitem>
+                </p:tabMenu>
+				</div>
+				</div>
+            </p:panel>
+        </h:form >
+
+
+
+        <ui:insert name="content" />
     </h:body>
 </f:view>
 </html>
