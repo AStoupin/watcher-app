@@ -86,17 +86,17 @@
                         <p:column headerText="Status" style="width:100px" filterBy="#{routeListController.getRouteStatus(route.id)}" sortBy="#{routeListController.getRouteStatus(route.id)}" >
                             <h:outputText value="#{routeListController.getRouteStatus(route.id)}" />
                         </p:column>
-                        <p:column headerText="Id" style="width:200px" filterBy="#{route.id}" >
+                        <p:column headerText="Id" style="width:200px" filterBy="#{route.id}" filterMatchMode="contains">
                             <h:outputText value="#{route.id}" />
                         </p:column>
 
-                        <p:column headerText="From"  filterBy="#{routeListController.getFromInfo(route.id)}">
+                        <p:column headerText="From"  filterBy="#{routeListController.getFromInfo(route.id)}" filterMatchMode="contains">
                             <h:outputText value="#{routeListController.getFromInfo(route.id)}"/>
                         </p:column>
-                        <p:column headerText="To" filterBy="#{routeListController.getToInfo(route.id)}">
+                        <p:column headerText="To" filterBy="#{routeListController.getToInfo(route.id)}" filterMatchMode="contains">
                             <h:outputText value="#{routeListController.getToInfo(route.id)}" />
                         </p:column>
-                        <p:column headerText="Failures" style="width:100px"  filterBy="#{routeListController.getFailuresCount(route.id)}"  sortBy="#{routeListController.getFailuresCount(route.id)}">
+                        <p:column headerText="Failures" style="width:100px"  filterBy="#{routeListController.getFailuresCount(route.id)}"  sortBy="#{routeListController.getFailuresCount(route.id)}" filterMatchMode="gte">
                             <h:outputText value="#{routeListController.getFailuresCount(route.id)}" />
                         </p:column>
 

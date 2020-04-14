@@ -11,7 +11,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <h:outputStylesheet library="styles" name="test.css"  />
+        <h:outputStylesheet library="styles" name="styles.css"  />
         <title>  <ui:insert name="title" /></title>
 
 
@@ -21,7 +21,7 @@
         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" delay="500" />
 
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-            <h:outputText value="In progress..." style="margin:0 0 0; border:0px; padding:0px 0 0 0" />
+            <h:outputText value="In progress..." />
         </p:dialog>
 
 

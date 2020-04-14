@@ -58,23 +58,23 @@
 
 
                         </f:facet>
-                        <p:column headerText="Route" style="width:200px"   filterBy="#{statItem.routeId}">
+                        <p:column headerText="Route" style="width:200px"   filterBy="#{statItem.routeId}" filterMatchMode="contains">
                             <h:outputText value="#{statItem.routeId}" />
                         </p:column>
 
-                        <p:column headerText="Event Date"  style="width:180px" filterBy="#{statItem.eventDate}" sortBy="#{statItem.eventDate}" >
+                        <p:column headerText="Event Date"  style="width:180px" filterBy="#{statItem.eventDate}" sortBy="#{statItem.eventDate}" filterMatchMode="contains" >
                             <h:outputText value="#{statItem.eventDate}" />
                         </p:column>
 
-                        <p:column headerText="File Name" style="width:200px"   filterBy="#{statItem.fileName}">
+                        <p:column headerText="File Name" style="width:200px"   filterBy="#{statItem.fileName}" filterMatchMode="contains">
                             <h:outputText value="#{statItem.fileName}" />
                         </p:column>
 
-                        <p:column headerText="Is Successed"  style="width:100px" filterBy="#{statItem.isSuccessed()}">
+                        <p:column headerText="Is Successed"  style="width:100px" filterBy="#{statItem.isSuccessed()}" filterMatchMode="contains">
                             <h:outputText value="#{statItem.isSuccessed()}" />
                         </p:column>
 
-                        <p:column headerText="Error Message"  filterBy="#{statItem.errorMessage}">
+                        <p:column headerText="Error Message"  filterBy="#{statItem.errorMessage}" filterMatchMode="contains">
                             <h:outputText value="#{statItem.errorMessage}" />
                         </p:column>
 
