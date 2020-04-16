@@ -7,6 +7,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -15,6 +16,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.model.RouteDefinition;
+import org.joinfaces.autoconfigure.butterfaces.ButterfacesProperties.Integration.Primefaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,14 @@ import org.springframework.stereotype.Component;
 import ru.cetelem.watcher.service.RouteDefinitionExplorer;
 import ru.cetelem.watcher.service.RouteService;
 import ru.cetelem.watcher.service.RouteStatService;
+import ru.cetelem.watcher.service.TemplateService;
+
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSeparator;
+import org.primefaces.model.menu.MenuModel;
+import org.primefaces.model.menu.Separator;
 
 
 @Scope(value = "application")
@@ -45,20 +54,54 @@ public class RouteListController {
 	private SelectedRoute selectedRoute;
 
 	@Autowired
-	RouteStatService routeStatService;
+	private RouteStatService routeStatService;
 
+	@Autowired
+	private TemplateService templateService;
+	
+	private MenuModel templates;
+		
 	String Version;
 	
 	public RouteListController(){
 	}
 
 	public void init(){
-
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pageIndex", "0");
 	}
+	
     public String getVersion() {
 		return Version;
 	}
 
+    public MenuModel getTemplatesMenu() {
+    	if(templates!=null)
+        	return templates;    		
+
+ 
+		templates  = new DefaultMenuModel();
+		 
+		DefaultMenuItem item = DefaultMenuItem.builder()
+	                .value(TemplateService.EMPTY_TEMPLATE_KEY)
+	                .url("/route-add/"+TemplateService.EMPTY_TEMPLATE_KEY)
+	                .build();
+		 templates.getElements().add(item);
+		 templates.getElements().add(new DefaultSeparator());
+		 
+		 
+		for (String key: templateService.getTemplates().keySet()) {
+			 if(TemplateService.EMPTY_TEMPLATE_KEY.equals(key))
+				 continue;
+			 
+			  item = DefaultMenuItem.builder()
+		                .value(key)
+		                .url("/route-add/"+key)
+		                .build();
+			  templates.getElements().add(item);
+		}
+
+		return templates;
+    }    
 	public List<RouteDefinition> getRouteDefinitions(){
     	
     	

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route 
+	    autoStartup="false"
+		description=" Some description of the route">
+		<from uri="ftp://reestr@sdws01.jv.ru?password=12345&amp;delay=10000&amp;move=.done&amp;moveFailed=.error&amp;include=.*\.txt&amp;localWorkDirectory=/temp&amp;throwExceptionOnConnectFailed=true&amp;consumer.bridgeErrorHandler=true&amp;timeout=3000"/> 
+		<to uri="file:/c:/Temp/2" />
+     </route>
+ </routes>

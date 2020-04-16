@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<route xmlns="http://camel.apache.org/schema/spring"
+       autoStartup="false"
+       description=" Some description of the route"
+       >
+   <from uri="file:/c:/Temp/1?move=.done&amp;moveFailed=.error&amp;delay=30000&amp;include=.*\.txt"/>
+   <to   uri="file:/c:/Temp/"/>
+</route>
+

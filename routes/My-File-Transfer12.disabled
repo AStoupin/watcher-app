@@ -5,7 +5,6 @@
     <choice customId="false" id="choice1">
         <when customId="true" id="when1">
             <simple>${header.CamelFileAbsolutePath} regex '.*[AUD].*\.*'</simple>
-            <to customId="true" id="to2" uri="file:/c:/Temp/2"/>
         </when>
         <otherwise customId="true" id="otherwise1">
             <to customId="true" id="to3" uri="file:/c:/Temp/3"/>

@@ -73,20 +73,36 @@ public class WatcherApp  extends HttpConfigurationProvider
     
 	@Override
 	public org.ocpsoft.rewrite.config.Configuration getConfiguration(ServletContext context) {
-	      return ConfigurationBuilder.begin()
+/*	      return ConfigurationBuilder.begin()
 	        .addRule()
 	          .when(Direction.isInbound().and(Path.matches("/")))
 	          .perform(Forward.to("/route-list.jsf"))
-	        .addRule()
-	          .when(Direction.isInbound().and(Path.matches("/monitor")))
-	          .perform(Forward.to("/route-monitor.jsf"))	          
 		     .addRule()
 	          .when(Direction.isInbound().and(Path.matches("/route-add")))
 	          .perform(Forward.to("/route-edit.jsf"))
 	        .addRule()
 	          .when(Direction.isInbound().and(Path.matches("/route/{routeId}")))
-	          .perform(Forward.to("/route-edit.jsf?routeId={routeId}"));
-	      
+	          .perform(Forward.to("/route-edit.jsf?routeId={routeId}"))
+			.addRule()
+			   .when(Direction.isInbound().and(Path.matches("/route-add/{templateId}")))
+			   .perform(Forward.to("/route-edit.jsf?templateId={templateId}"));
+	*/      
+	  	return ConfigurationBuilder.begin().
+				addRule()
+					.when(Direction.isInbound().and(Path.matches("/login")))
+					.perform(Forward.to("/login.jsf"))
+		        .addRule()
+		          .when(Direction.isInbound().and(Path.matches("/monitor")))
+		          .perform(Forward.to("/route-monitor.jsf"))	          
+				.addRule()
+					.when(Direction.isInbound().and(Path.matches("/")))
+					.perform(Forward.to("/route-list.jsf"))
+				.addRule()
+					.when(Direction.isInbound().and(Path.matches("/route/{routeId}")))
+					.perform(Forward.to("/route-edit.jsf?routeId={routeId}"))
+				.addRule()
+					.when(Direction.isInbound().and(Path.matches("/route-add/{templateId}")))
+					.perform(Forward.to("/route-edit.jsf?templateId={templateId}"));	      
 
 	      
 	}

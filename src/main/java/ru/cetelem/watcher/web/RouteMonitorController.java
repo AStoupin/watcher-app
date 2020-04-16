@@ -58,6 +58,11 @@ public class RouteMonitorController {
 	public RouteMonitorController(){
 	}
 	private List<RouteStatItem>  routeStatFilteredItems;
+	
+	public void init(){
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pageIndex", "1");		
+	}
+	
 	public List<RouteStatItem> getRouteStatItems(){
     	return routeStatService.getStatList();
     }

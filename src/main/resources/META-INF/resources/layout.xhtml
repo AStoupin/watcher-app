@@ -11,6 +11,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/icon.png"/>
         <h:outputStylesheet library="styles" name="styles.css"  />
         <title>  <ui:insert name="title" /></title>
 
@@ -27,27 +28,28 @@
 
         <h:form >
 
-               <p:panel id="basic"  >
-			    <div class="ui-g"  >
-				<div class="ui-g-1 main-panel"  >
-			    <img src="/images/logo.png" class="logo-img"/>
+			<p:panel id="basic">
+				<div class="ui-g">
+					<div class="ui-g-1 main-panel">
+						<img src="/images/logo.png" class="logo-img" />
+					</div>
+					<div class="ui-g-1 main-panel logo-app-name">
+						<h:outputText value="Watcher-App" />
+					</div>
+					<div class="ui-g-10	main-panel">
+						<p:tabMenu activeIndex="#{sessionScope['pageIndex']}">
+							<p:menuitem url="/" value="Route list" 
+								icon="pi pi-star">
+							</p:menuitem>
+							<p:menuitem url="/monitor" value="Route monitor"
+								icon="pi pi-search">
+							</p:menuitem>
+						</p:tabMenu>
+					</div>
 				</div>
-				<div class="ui-g-1 main-panel logo-app-name"  >
-			    <h:outputText value="Watcher-App"   />
-				</div>				
-				<div class="ui-g-10	main-panel" >
-                <p:tabMenu activeIndex="#{param.i}">
-                    <p:menuitem outcome="route-list" value="Route list" icon="pi pi-star">
-                        <f:param name="i" value="0" />
-                    </p:menuitem>
-                    <p:menuitem outcome="route-monitor" value="Route monitor"  icon="pi pi-search">
-                        <f:param name="i" value="1" />
-                    </p:menuitem>
-                </p:tabMenu>
-				</div>
-				</div>
-            </p:panel>
-        </h:form >
+			</p:panel>
+			
+		</h:form >
 
 
 

@@ -5,20 +5,14 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.print.attribute.standard.Severity;
-import javax.xml.bind.JAXBException;
 
-import org.apache.camel.model.RouteDefinition;
-import org.apache.camel.model.RoutesDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import ru.cetelem.watcher.service.RouteService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ru.cetelem.watcher.service.TemplateService;
 
 @Component(value = "routeEditController")
 public class RouteEditController {
@@ -30,7 +24,9 @@ public class RouteEditController {
 	@Autowired
 	private SelectedRoute selectedRoute;
 	
-
+	@Autowired
+	TemplateService templateService;
+	
 
 	private String xml;
 	private String routeId;
@@ -52,7 +48,9 @@ public class RouteEditController {
 		if (FacesContext.getCurrentInstance().isPostback()){
 			return;
 		}
-		
+
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pageIndex", "-1");
+
 		refer = FacesContext.getCurrentInstance().getExternalContext().getRequestHeaderMap().get("referer");
 		refer = refer==null?"/":refer;
 				 
@@ -72,7 +70,7 @@ public class RouteEditController {
 		}
 		else {
 			routeId="route-name";
-			xml="";
+			xml=templateService.getTemplates().get(paramMap.get("templateId"));
 		}
 		
 		log.info("init started {}", routeId);
