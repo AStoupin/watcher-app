@@ -48,6 +48,7 @@
                                  selection="#{routeListController.selectedRouteDefinition}"
                                  rowKey="#{route.id}"
                                  filteredValue="#{routeListController.filteredRoutes}"
+                                
                                  rows="10"
                                  paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -91,7 +92,7 @@
 
                         <p:ajax event="rowSelect" listener="#{routeListController.onRowSelect}"  update="@widgetVar(actionButton) @widgetVar(actionDelete)"/>
 
-                        <p:column headerText="Status" style="width:100px" filterBy="#{routeListController.getRouteStatus(route.id)}" sortBy="#{routeListController.getRouteStatus(route.id)}" >
+                        <p:column headerText="Status" style="width:100px" filterBy="#{routeListController.getRouteStatus(route.id)}"  filterMatchMode="contains" sortBy="#{routeListController.getRouteStatus(route.id)}" >
                             <h:outputText value="#{routeListController.getRouteStatus(route.id)}" />
                         </p:column>
                         <p:column headerText="Id" style="width:200px" filterBy="#{route.id}" filterMatchMode="contains">

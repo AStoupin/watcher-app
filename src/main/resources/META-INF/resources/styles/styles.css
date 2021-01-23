@@ -1,6 +1,31 @@
-html {
 
+
+html {
+	--input-hover-border-color: red !important;
+    --input-focus-border-color: red !important;	
     background: #323232
+}
+
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active {
+    background-color: #323232;
+    border: 1px solid #323232;
+    border-bottom: 1px solid #1ea04c;
+}
+
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem {
+
+    border: 1px solid #323232;
+    border-bottom: 1px solid #191919;
+    background-color: #323232;
+}
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-hover {
+
+    border: 1px solid #323232;
+    border-bottom: 1px solid #1ea04c;
+    background-color: #323232;
 }
 
 
@@ -70,4 +95,6 @@ div.logo-app-name{
 	border:0px; 
 	padding:0px 0 0 0;
 	color:#1ea04c;
+	font-family: "Open Sans","Helvetica Neue",sans-serif;
+	font-weight: 400;
 }
