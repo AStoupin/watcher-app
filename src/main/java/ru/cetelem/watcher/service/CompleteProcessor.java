@@ -24,6 +24,7 @@ public class CompleteProcessor implements Processor {
 
 	public void process(Exchange exchange) throws Exception {
 		log.info("CompleteProcessor process: {}", exchange.getFromRouteId());
+	
 		String completeMessage = Optional.ofNullable(exchange.getProperty(Exchange.EXCEPTION_CAUGHT)).orElse("ok").toString();
 		if("ok".equals(completeMessage)) {
 			routeStatService.add(exchange);

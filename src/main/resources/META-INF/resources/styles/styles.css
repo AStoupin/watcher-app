@@ -3,29 +3,69 @@
 html {
 	--input-hover-border-color: red !important;
     --input-focus-border-color: red !important;	
-    background: #323232
+    --wa-main-color: #1ea04c;
+    --wa-main-inactive-color: #888;
+	--wa-background-color: #323232;
+	
+    background: var(--wa-background-color)
 }
 
 
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active {
-    background-color: #323232;
-    border: 1px solid #323232;
-    border-bottom: 1px solid #1ea04c;
+    background-color: var(--wa-background-color);
+    border: 1px solid var(--wa-background-color);
+    border-bottom: 1px solid var(--wa-main-color);
 }
 
 
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem {
 
-    border: 1px solid #323232;
+    border: 1px solid var(--wa-background-color);
     border-bottom: 1px solid #191919;
-    background-color: #323232;
+    background-color: var(--wa-background-color);
+
 }
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active  .ui-menuitem-text{
+    color: var(--wa-main-color);
+    
+}
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-hover  .ui-menuitem-text{
+    color: var(--wa-main-inactive-color);
+  	transition-duration: .5s;    
+}
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem  .ui-menuitem-text{
+    color: var(--wa-main-inactive-color);;
+}
+
+
 
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-hover {
 
-    border: 1px solid #323232;
-    border-bottom: 1px solid #1ea04c;
-    background-color: #323232;
+	transition-property: border-bottom;
+    border: 1px solid var(--wa-background-color);
+    border-bottom: 1px solid var(--wa-main-inactive-color);
+    background-color: var(--wa-background-color);
+    transition-duration: .5s;
+}
+
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-hover a {
+   color: var(--wa-main-inactive-color);
+   transition-duration: .5s;
+}
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-hover a .ui-icon {
+   color: var(--wa-main-inactive-color);
+   transition-duration: .5s;
+	
+}
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active a .ui-icon {
+   color: var(--wa-main-color);
+   transition-duration: .5s;
+	
 }
 
 
@@ -40,7 +80,7 @@ body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-hover {
     text-align: right !important;
 
 }
-.pf,
+/*.pf,
 .pf * {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
@@ -48,7 +88,7 @@ body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-hover {
 }
 .nest-bf-in-pf .form-group {
     margin-bottom:0px;
-}
+}*/
 
 div.ko-class {
     background: #F03030 none !important;  /* red */
@@ -72,7 +112,7 @@ div.unavailable {
 
 }
 div.CodeMirror-gutter.CodeMirror-linenumbers {
-	background: #323232	 !important;
+	background: var(--wa-background-color)	 !important;
 }
 
 [id$="basic_content"] {
@@ -94,7 +134,7 @@ div.logo-app-name{
 	margin:9px 0 0 0; 
 	border:0px; 
 	padding:0px 0 0 0;
-	color:#1ea04c;
+	color:var(--wa-main-color);
 	font-family: "Open Sans","Helvetica Neue",sans-serif;
 	font-weight: 400;
 }

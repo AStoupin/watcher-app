@@ -24,6 +24,8 @@
     </ui:define>
 
     <ui:define name="content">
+    
+    
  		<f:metadata>
         		<f:event type="preRenderView" listener="#{routeMonitorController.init()}"/>
    		</f:metadata>
@@ -85,10 +87,46 @@
                         </p:column>
 
                         <p:column headerText="Error Message"  filterBy="#{statItem.errorMessage}" filterMatchMode="contains">
-                            <h:outputText value="#{statItem.errorMessage}" />
+                        	<h:outputText value="#{statItem.errorMessage}" />
+                            <p:commandLink id="ajax" rendered="#{!statItem.isSuccessed()}" onclick="PF('dlgErrorDetails#{statItem.eventDate}').show();" style="margin-right:20px;">
+                    		        <h:outputText value=" ..." />
+        					</p:commandLink>
+        					
+
+						    <p:dialog header="Error details"  widgetVar="dlgErrorDetails#{statItem.eventDate}" id="dlgErrorDetails#{statItem.eventDate}" resizable="false">
+						
+						
+						        <div class="ui-g" style="width:800px"  >
+						
+						
+						            <div class="ui-g-12">
+										<p:inputTextarea rows="20" cols="110" style="resize: none;" autoResize="false" readonly="true" value="#{statItem.errorDetails}"/>
+						
+						            </div>
+						            <div class="ui-g-12" >
+						                <div class="ui-g-10">
+						                </div>
+						                <div class="ui-g-2">
+						
+						                    <p:commandButton value="Close"  onclick="PF('dlgErrorDetails#{statItem.eventDate}').hide();" style="width:100%" />
+						                </div>
+						            </div>
+						
+						        </div>
+						
+						
+						
+						
+						
+						    </p:dialog>
+        					
+                            
+                            
                         </p:column>
 
                     </p:dataTable>
+
+
 
 
         </h:form>

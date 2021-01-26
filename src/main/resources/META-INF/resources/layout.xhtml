@@ -33,10 +33,11 @@
 					<div class="ui-g-1 main-panel">
 						<img src="/images/logo.png" class="logo-img" />
 					</div>
-					<div class="ui-g-1 main-panel logo-app-name">
+					<div class="ui-g-2 main-panel logo-app-name">
 						<h:outputText value="Watcher-App" />
+						<h:outputText value=" - #{applicationSettingsService.buildVersion}" />
 					</div>
-					<div class="ui-g-10	main-panel">
+					<div class="ui-g-9	main-panel">
 						<p:tabMenu activeIndex="#{sessionScope['pageIndex']}">
 							<p:menuitem url="/" value="Route list" 
 								icon="pi pi-star">
