@@ -5,6 +5,7 @@ package ru.cetelem.watcher.web;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -23,12 +24,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import ru.cetelem.watcher.service.ApplicationSettingsService;
 import ru.cetelem.watcher.service.RouteDefinitionExplorer;
 import ru.cetelem.watcher.service.RouteService;
 import ru.cetelem.watcher.service.RouteStatService;
 import ru.cetelem.watcher.service.TemplateService;
 
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.FilterMeta;
+import org.primefaces.model.MatchMode;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSeparator;
@@ -59,20 +63,25 @@ public class RouteListController {
 	@Autowired
 	private TemplateService templateService;
 	
+	@Autowired
+	ApplicationSettingsService applicationSettingsService;
+	
+	
 	private MenuModel templates;
 		
-	String Version;
+
+	
 	
 	public RouteListController(){
+	
 	}
+
 
 	public void init(){
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pageIndex", "0");
 	}
 	
-    public String getVersion() {
-		return Version;
-	}
+
 
     public MenuModel getTemplatesMenu() {
     	if(templates!=null)
@@ -120,6 +129,9 @@ public class RouteListController {
 	public void setFilteredRoutes(List<Route> filteredRoutes){
 		this.filteredRoutes = 	filteredRoutes;
 	}
+
+	
+
 
     public ServiceStatus getRouteStatus(String id) {
     	

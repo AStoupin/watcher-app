@@ -19,6 +19,7 @@ import ru.cetelem.watcher.model.RouteStatItem;
 public class RouteStatService {
 	private static final Logger log = LoggerFactory.getLogger(RouteStatService.class);
 	private static final int MAX_SIZE = 5;
+	public static final String EXCHANGE_DETAILS = "WAExchangeDetails" ;
 	
 	private HashMap<String, List<RouteStatItem>> routeStat = new HashMap<String, List<RouteStatItem>>();
 	
@@ -28,11 +29,12 @@ public class RouteStatService {
 	
 	public void add(Exchange exchange) {
 		String completeMessage = Optional.ofNullable(exchange.getProperty(Exchange.EXCEPTION_CAUGHT)).orElse("ok").toString();
+		String errorDetails = Optional.ofNullable(exchange.getProperty(EXCHANGE_DETAILS)).orElse("").toString();
 		GenericFile<Object> fileName = (GenericFile<Object>)Optional.ofNullable(exchange.getProperty("CamelFileExchangeFile")).
 																		orElse(getNoFile());
 		 
 		RouteStatItem routeStatItem = new RouteStatItem(exchange.getFromRouteId(), fileName.getFileName(), 
-													"ok".equals(completeMessage), completeMessage);
+													"ok".equals(completeMessage), completeMessage, errorDetails);
 		addStatItem(exchange.getFromRouteId(), routeStatItem);
 		
 	}

@@ -13,10 +13,13 @@ public class RouteDefinitionEnricher {
     private ErrorProcessor errorProcessor;
     @Autowired
     private CompleteProcessor completeProcessor;
+    
     /**
      * Add extra functionality to the specified route
-     * 1. Exception/OnComplete handling to watcher-app processors
-     * 2. for ftp endpoints add bridgeErrorHandler=true + throwExceptionOnConnectFailed=true
+     * <ul style="list-style-type: decimal">
+     * <li> Exception/OnComplete handling to watcher-app processors (to handle statuses) </li>
+     * <li> for ftp endpoints add bridgeErrorHandler=true + throwExceptionOnConnectFailed=true </li>
+     * <ul>
      *
      * @param routeDefinition
      */
