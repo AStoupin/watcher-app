@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import ru.cetelem.watcher.service.RouteDefinitionConverter;
 import ru.cetelem.watcher.service.RouteService;
 import ru.cetelem.watcher.service.TemplateService;
 
@@ -20,6 +21,8 @@ public class RouteEditController {
 	
 	@Autowired
 	private RouteService routeLoaderService;
+	@Autowired
+	RouteDefinitionConverter routeDefinitionConverter;
 	
 	@Autowired
 	private SelectedRoute selectedRoute;
@@ -63,7 +66,7 @@ public class RouteEditController {
 		if (routeId!=null) {
 			selectedRoute.setSelectedRouteDefinition(routeLoaderService.findById(routeId));
 			
-			xml = routeLoaderService.getRouteDefinitionAsXml(selectedRoute.getSelectedRouteDefinition());
+			xml = routeDefinitionConverter.routeDefinitionToXml(selectedRoute.getSelectedRouteDefinition());
 			routeId = selectedRoute.getSelectedRouteDefinition().getId();
 
 			isNew = false;

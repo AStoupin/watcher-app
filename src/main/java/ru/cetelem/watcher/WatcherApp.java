@@ -27,7 +27,8 @@ import org.springframework.context.annotation.ImportResource;
 import ru.cetelem.watcher.service.ErrorProcessor;
 
 @EnableAutoConfiguration
-@ComponentScan({"ru.cetelem.watcher.web", "ru.cetelem.watcher.service"})
+@ComponentScan({"ru.cetelem.watcher.web", "ru.cetelem.watcher.service",
+                 "ru.cetelem.watcher.registry"})
 @ImportResource("classpath:camel-context.xml")
 @Configuration
 @RewriteConfiguration

@@ -2,6 +2,7 @@ package ru.cetelem.watcher.service;
 
 import org.apache.camel.model.OnCompletionDefinition;
 import org.apache.camel.model.OnExceptionDefinition;
+import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,9 @@ public class RouteDefinitionEnricher {
      *
      * @param routeDefinition
      */
-    void enrichRouteDefinition(RouteDefinition routeDefinition) {
+    public void enrichRouteDefinition(String routeId, RouteDefinition routeDefinition) {
+        routeDefinition.setId(routeId);
+
         routeDefinition.onException(Exception.class).process(errorProcessor);
         routeDefinition.onCompletion().process(completeProcessor);
 
@@ -48,7 +51,8 @@ public class RouteDefinitionEnricher {
      *
      * @param routeDefinition
      */
-    void cleanRouteDefinition(RouteDefinition routeDefinition) {
+    public void cleanExtraRouteDefinition(RouteDefinition routeDefinition) {
+
         if (routeDefinition.getInputs().get(0).getEndpointUri().startsWith("ftp:")) {
             routeDefinition.getInputs().get(0).setUri(
                     StringUtils.replace(routeDefinition.getInputs().get(0).getEndpointUri(), "&bridgeErrorHandler=true", "")
@@ -74,4 +78,8 @@ public class RouteDefinitionEnricher {
                 }
         );
     }
+
+
+
+
 }

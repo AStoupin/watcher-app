@@ -2,42 +2,42 @@
 
 html {
 	--input-hover-border-color: red !important;
-    --input-focus-border-color: red !important;	
-    --wa-main-color: #1ea04c;
-    --wa-main-inactive-color: #888;
+	--input-focus-border-color: red !important;
+	--wa-main-color: #1ea04c;
+	--wa-main-inactive-color: #888;
 	--wa-background-color: #323232;
-	
-    background: var(--wa-background-color)
+
+	background: var(--wa-background-color)
 }
 
 
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active {
-    background-color: var(--wa-background-color);
-    border: 1px solid var(--wa-background-color);
-    border-bottom: 1px solid var(--wa-main-color);
+	background-color: var(--wa-background-color);
+	border: 1px solid var(--wa-background-color);
+	border-bottom: 1px solid var(--wa-main-color);
 }
 
 
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem {
 
-    border: 1px solid var(--wa-background-color);
-    border-bottom: 1px solid #191919;
-    background-color: var(--wa-background-color);
+	border: 1px solid var(--wa-background-color);
+	border-bottom: 1px solid #191919;
+	background-color: var(--wa-background-color);
 
 }
 
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active  .ui-menuitem-text{
-    color: var(--wa-main-color);
-    
+	color: var(--wa-main-color);
+
 }
 
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-hover  .ui-menuitem-text{
-    color: var(--wa-main-inactive-color);
-  	transition-duration: .5s;    
+	color: var(--wa-main-inactive-color);
+	transition-duration: .5s;
 }
 
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem  .ui-menuitem-text{
-    color: var(--wa-main-inactive-color);;
+	color: var(--wa-main-inactive-color);;
 }
 
 
@@ -45,39 +45,39 @@ body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem  .ui-menuitem-text{
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-hover {
 
 	transition-property: border-bottom;
-    border: 1px solid var(--wa-background-color);
-    border-bottom: 1px solid var(--wa-main-inactive-color);
-    background-color: var(--wa-background-color);
-    transition-duration: .5s;
+	border: 1px solid var(--wa-background-color);
+	border-bottom: 1px solid var(--wa-main-inactive-color);
+	background-color: var(--wa-background-color);
+	transition-duration: .5s;
 }
 
 
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-hover a {
-   color: var(--wa-main-inactive-color);
-   transition-duration: .5s;
+	color: var(--wa-main-inactive-color);
+	transition-duration: .5s;
 }
 
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-hover a .ui-icon {
-   color: var(--wa-main-inactive-color);
-   transition-duration: .5s;
-	
+	color: var(--wa-main-inactive-color);
+	transition-duration: .5s;
+
 }
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active a .ui-icon {
-   color: var(--wa-main-color);
-   transition-duration: .5s;
-	
+	color: var(--wa-main-color);
+	transition-duration: .5s;
+
 }
 
 
 .ui-outputlabel{
-    color: #bbbbbb;
+	color: #bbbbbb;
 }
 .ui-datatable .ui-datatable-header .button-panel {
-    text-align: left !important;
+	text-align: left !important;
 }
 
 .ui-datatable .ui-datatable-header .search-panel {
-    text-align: right !important;
+	text-align: right !important;
 
 }
 /*.pf,
@@ -91,23 +91,23 @@ body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active a .ui-icon {
 }*/
 
 div.ko-class {
-    background: #F03030 none !important;  /* red */
-    border-color: #bd2828 !important;     /* red */
+	background: #F03030 none !important;  /* red */
+	border-color: #bd2828 !important;     /* red */
 }
 
 div.ok-class {
-    background: #007053 none !important;  /* green */
-    border-color: #007053  !important;     /* green */
+	background: #007053 none !important;  /* green */
+	border-color: #007053  !important;     /* green */
 }
 
 div.unavailable {
-    background: #F03030 none !important;  /* red */
-    border-color: #bd2828 !important;     /* red */
+	background: #F03030 none !important;  /* red */
+	border-color: #bd2828 !important;     /* red */
 }
 
 .CodeMirror{
-    border-radius: 3px !important;
-    border: 1px solid #585858 !important;
+	border-radius: 3px !important;
+	border: 1px solid #585858 !important;
 	background: #585858	 !important;
 
 }
@@ -121,18 +121,18 @@ div.CodeMirror-gutter.CodeMirror-linenumbers {
 	padding: 0 !important;
 }
 div.main-panel{
-margin:0 0 0; 
-border:0px; 
-padding:0px 0 0 0;
+	margin:0 0 0;
+	border:0px;
+	padding:0px 0 0 0;
 }
 .logo-img{
 	height: 34px;
-	position: 
-	absolute;top: 12px;
+	position:
+			absolute;top: 12px;
 }
 div.logo-app-name{
-	margin:9px 0 0 0; 
-	border:0px; 
+	margin:9px 0 0 0;
+	border:0px;
 	padding:0px 0 0 0;
 	color:var(--wa-main-color);
 	font-family: "Open Sans","Helvetica Neue",sans-serif;

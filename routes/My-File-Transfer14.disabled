@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<route xmlns="http://camel.apache.org/schema/spring" autoStartup="false" customId="true" description=" asashdljh asljfh lasdj1111111 " id="My-File-Transfer14">
-    <from customId="true" uri="ftp://test@ie6winxp?password=test&amp;antInclude=.*\.txt&amp;move=.done&amp;moveFailed=.error&amp;delay=30000"/>
-    <to customId="false" id="to9" uri="file:/c:/Temp/2"/>
-</route>
-

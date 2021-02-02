@@ -1,50 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
-<!-- 
-	<bean id="metricsRoutePolicyFactory" class="org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory"/>
- -->
- 
-	<!--  	
-	<bean id="myDeadLetterErrorHandler" class="org.apache.camel.builder.DeadLetterChannelBuilder">
-		<property name="deadLetterUri" value="jms:queue:dead"/>
-	</bean>
-	<bean id="myHandler" class="ru.cetelem.watcher.MyHandler"/>
-	<bean id="failureResponseProcessor" class="ru.cetelem.watcher.FailureResponseProcessor"/>
-	<bean id="myMessage" class="ru.cetelem.watcher.MyMessage"/>
-	<bean id="myInterceptor" class="ru.cetelem.watcher.MyInterceptor"/>
-	 -->
-	 
-<!-- 	 
-	 <bean id="logQuery" class="io.hawt.log.log4j.Log4jLogQuery"
-          lazy-init="false" scope="singleton"
-          init-method="start" destroy-method="stop"/> 
-           -->
-        
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+	<!-- <bean id="metricsRoutePolicyFactory" class="org.apache.camel.component.metrics.routepolicy.MetricsRoutePolicyFactory"/> -->
+
+	<!-- <bean id="myDeadLetterErrorHandler" class="org.apache.camel.builder.DeadLetterChannelBuilder"> 
+		<property name="deadLetterUri" value="jms:queue:dead"/> </bean> <bean id="myHandler" 
+		class="ru.cetelem.watcher.MyHandler"/> <bean id="failureResponseProcessor" 
+		class="ru.cetelem.watcher.FailureResponseProcessor"/> <bean id="myMessage" 
+		class="ru.cetelem.watcher.MyMessage"/> <bean id="myInterceptor" class="ru.cetelem.watcher.MyInterceptor"/> -->
+
+	<!-- <bean id="logQuery" class="io.hawt.log.log4j.Log4jLogQuery" lazy-init="false" 
+		scope="singleton" init-method="start" destroy-method="stop"/> -->
+
 	<bean id="traceFormatter"
 		class="org.apache.camel.processor.interceptor.DefaultTraceFormatter">
-		<property name="showProperties" value="false"/>
-		<property name="showHeaders" value="false"/>
-		<property name="showExchangePattern" value="false"/>
-		<property name="showExchangeId" value="false"/>
-		<property name="showShortExchangeId" value="true"/>
-		<property name="showRouteId" value="true"/>
-		<property name="showBreadCrumb" value="false"/>
-		 
+		<property name="showProperties" value="false" />
+		<property name="showHeaders" value="false" />
+		<property name="showExchangePattern" value="false" />
+		<property name="showExchangeId" value="false" />
+		<property name="showShortExchangeId" value="true" />
+		<property name="showRouteId" value="true" />
+		<property name="showBreadCrumb" value="false" />
+
 	</bean>
 
-		 <!-- <bean id="pluginContextListener" class="ru.cetelem.watcher.PluginContextListener"
-        />  -->
-          
-      		 <!-- bean id="endPointConfigurer" class="ru.cetelem.watcher.EndPointConfigurer"
-        />  -->
-        
-            
-	<!-- <bean id="eventLogger"
-		class="org.apache.camel.management.LoggingEventNotifier">
-		<property name="logName" value="rider.EventLog"/>
-		<property name="ignoreCamelContextEvents" value="true"/>
-		<property name="ignoreRouteEvents" value="true"/>
-		<property name="ignoreServiceEvents" value="true"/>
-	</bean> -->
-          
+	<!-- <bean id="pluginContextListener" class="ru.cetelem.watcher.PluginContextListener" 
+		/> -->
+
+	<!-- bean id="endPointConfigurer" class="ru.cetelem.watcher.EndPointConfigurer" 
+		/> -->
+
+
+	<!-- <bean id="eventLogger" class="org.apache.camel.management.LoggingEventNotifier"> 
+		<property name="logName" value="rider.EventLog"/> <property name="ignoreCamelContextEvents" 
+		value="true"/> <property name="ignoreRouteEvents" value="true"/> <property 
+		name="ignoreServiceEvents" value="true"/> </bean> -->
+
 </beans>

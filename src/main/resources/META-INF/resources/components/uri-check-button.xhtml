@@ -3,59 +3,62 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f = "http://java.sun.com/jsf/core"
-      xmlns:composite = "http://java.sun.com/jsf/composite">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
 
 <composite:interface>
-    <composite:attribute name = "value" />
+	<composite:attribute name="value" />
 </composite:interface>
 
 <composite:implementation>
 
 
-    <p:dialog header="Check an URI" widgetVar="dlgUriCheck" id="dlgUriCheck">
+	<p:dialog header="Check an URI" widgetVar="dlgUriCheck"
+		id="dlgUriCheck">
 
 
-        <div class="ui-g" style="width:600px"  >
+		<div class="ui-g" style="width: 600px">
 
 
-            <div class="ui-g-12">
-                <p:messages for="uri-error-message" widgetVar="msg1" id="msg1" showDetail="true" closable="true">
-                    <p:autoUpdate />
-                </p:messages >
+			<div class="ui-g-12">
+				<p:messages for="uri-error-message" widgetVar="msg1" id="msg1"
+					showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
 
-            </div>
-            <div class="ui-g-12">
-						<span class="ui-float-label">
-			  			  <p:inputText  widgetVar="uri-error-message"  id="uri-error-message"  value="#{uriCheckController.uri}"   style="width:100%"/>
-						   <p:outputLabel for="@previous" value="Input an URI here" />
-					   </span>
-            </div>
-            <div class="ui-g-12" >
-                <div class="ui-g-10">
-                </div>
-                <div class="ui-g-2">
+			</div>
+			<div class="ui-g-12">
+				<span class="ui-float-label"> <p:inputText
+						widgetVar="uri-error-message" id="uri-error-message"
+						value="#{uriCheckController.uri}" style="width:100%" /> <p:outputLabel
+						for="@previous" value="Input an URI here" />
+				</span>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-10"></div>
+				<div class="ui-g-2">
 
-                    <p:commandButton value="Check"  update="msg1" action="#{uriCheckController.check()}" style="width:100%" />
-                </div>
-            </div>
+					<p:commandButton value="Check" update="msg1"
+						action="#{uriCheckController.check()}" style="width:100%" />
+				</div>
+			</div>
 
-        </div>
-
-
-
-
-
-    </p:dialog>
+		</div>
 
 
-    <p:commandButton value="#{cc.attrs.value}"  style="width:100%" onclick="PF('dlgUriCheck').show();">
 
-    </p:commandButton>
+
+
+	</p:dialog>
+
+
+	<p:commandButton value="#{cc.attrs.value}" style="width:100%"
+		onclick="PF('dlgUriCheck').show();">
+
+	</p:commandButton>
 
 </composite:implementation>
 </html>
