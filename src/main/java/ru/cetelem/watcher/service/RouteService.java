@@ -29,7 +29,9 @@ public class RouteService {
 	@PostConstruct
 	private void init() {
 		start();
-		routeFileRegistry.loadRoutes().forEach(this::loadRouteDefinitionToCamel);
+		routeFileRegistry
+				.loadRoutes()
+				.forEach(this::loadRouteDefinitionToCamel);
 	}
 
 	private void start() {
