@@ -3,6 +3,7 @@ package ru.cetelem.watcher.service;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.model.RouteDefinition;
+import org.apache.tomcat.jni.Thread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class RouteService {
 		log.debug("save xml stared for {}", xml);
 
 		//try to load the xml
-		RouteDefinition routeDefinition = routeDefinitionConverter.getXmlAsRoutesDefinition(xml);
+		RouteDefinition routeDefinition = routeDefinitionConverter.getXmlAsRouteDefinition(routeId, xml);
 		routeDefinition.setId(routeId);
 		loadRouteDefinitionToCamel(routeId, routeDefinition, true);
 

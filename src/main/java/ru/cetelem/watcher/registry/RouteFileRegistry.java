@@ -1,11 +1,10 @@
 package ru.cetelem.watcher.registry;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.model.RouteDefinition;
-import org.apache.camel.model.RoutesDefinition;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,9 @@ import org.springframework.stereotype.Component;
 import ru.cetelem.watcher.service.CompleteProcessor;
 import ru.cetelem.watcher.service.ErrorProcessor;
 import ru.cetelem.watcher.service.RouteDefinitionConverter;
-import ru.cetelem.watcher.service.RouteDefinitionEnricher;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,8 +30,7 @@ public class RouteFileRegistry {
     private final String DISABLED_EXT = ".disabled";
     private final String ENABLED_EXT = ".xml";
 
-    @Autowired
-    private RouteDefinitionEnricher routeDefinitionEnricher;
+
     @Autowired
     RouteDefinitionConverter routeDefinitionConverter;
 
@@ -125,7 +120,10 @@ public class RouteFileRegistry {
         try {
             autoStart = xmlRoute.getFile().getName().endsWith(ENABLED_EXT);
 
-            RouteDefinition routeDefinition = getRouteDefinitionFromStream(id, xmlRoute.getInputStream());
+            String xml = IOUtils.toString(xmlRoute.getInputStream(), StandardCharsets.UTF_8);
+            RouteDefinition routeDefinition =
+                    routeDefinitionConverter.getXmlAsRouteDefinition(id, xml);
+
 
             routeDefinition.setAutoStartup(String.valueOf(autoStart));
 
@@ -140,34 +138,6 @@ public class RouteFileRegistry {
 
 
     }
-
-
-    protected RouteDefinition getRouteDefinitionFromStream(String routeId,  InputStream inputStream) {
-        RouteDefinition routeDefinition=null;
-        try {
-            RoutesDefinition xmlDefinition = camelContext.loadRoutesDefinition(inputStream);
-
-            if(xmlDefinition.getRoutes().size()==0)
-                return null;
-
-            routeDefinition = routeDefinitionConverter.
-                        routeDefinitionPure(xmlDefinition.getRoutes().get(0));
-
-            routeDefinition.setId(routeId);
-            routeDefinitionEnricher.cleanExtraRouteDefinition(routeDefinition);
-            routeDefinitionEnricher.enrichRouteDefinition(routeId, routeDefinition);
-
-            return routeDefinition;
-
-        } catch (Exception e) {
-            log.error("Error during add or start route {} {} ", routeId, e);
-
-            return null;
-        }
-
-
-    }
-
 
     public void delete(RouteDefinition routeDefinition) {
         try {

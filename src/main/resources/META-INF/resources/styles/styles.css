@@ -6,8 +6,14 @@ html {
 	--wa-main-color: #1ea04c;
 	--wa-main-inactive-color: #888;
 	--wa-background-color: #323232;
+	--var-main-background-odd-color: #383838;
+
 
 	background: var(--wa-background-color)
+}
+
+html :not(.ui-state-highlight):not(.ui-state-hover).ui-widget-content.ui-datatable-odd {
+	background-color: var(--var-main-background-odd-color) !important;
 }
 
 

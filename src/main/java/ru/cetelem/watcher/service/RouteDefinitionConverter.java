@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 
 @Component
 public class RouteDefinitionConverter {
@@ -41,16 +40,33 @@ public class RouteDefinitionConverter {
     @Autowired
     private RouteDefinitionEnricher routeDefinitionEnricher;
 
-    public RouteDefinition getXmlAsRoutesDefinition(String xml) {
-        RoutesDefinition xmlDefinition = null;
+    public RouteDefinition getXmlAsRouteDefinition(String routeId, String xml) {
+        RouteDefinition routeDefinition;
         try {
-            xmlDefinition = camelContext.loadRoutesDefinition(new ByteArrayInputStream(xml.getBytes()));
+            String xmlPretty = prettyXml(xml);
+
+            RoutesDefinition xmlDefinition = camelContext.loadRoutesDefinition(new ByteArrayInputStream(xmlPretty.getBytes()));
+
+            if(xmlDefinition.getRoutes().size()==0)
+                return null;
+
+            if(xmlDefinition.getRoutes().size()>1){
+                log.warn("too mach routes in xml for routeId={}. There are {} routes",
+                        routeId,  xmlDefinition.getRoutes().size());
+            }
+
+
+            routeDefinition = xmlDefinition.getRoutes().get(0);
+
+            routeDefinition.setId(routeId);
+            routeDefinitionEnricher.cleanExtraRouteDefinition(routeDefinition);
+            routeDefinitionEnricher.enrichRouteDefinition(routeId, routeDefinition);
 
         } catch (Exception e) {
             log.error("Error during getXmlAsRoutesDefinition ", e);
             throw new RuntimeException(e);
         }
-        return xmlDefinition.getRoutes().stream().findFirst().orElse(null);
+        return routeDefinition;
     }
 
     public String routeDefinitionToXml(RouteDefinition routeDefinition){
@@ -69,9 +85,6 @@ public class RouteDefinitionConverter {
         return xml;
     }
 
-    public RouteDefinition routeDefinitionPure(RouteDefinition routeDefinition){
-        return getXmlAsRoutesDefinition(routeDefinitionToXml(routeDefinition));
-    }
 
     private String prettyXml(String xml) throws ParserConfigurationException, SAXException, IOException, TransformerException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -96,9 +109,9 @@ public class RouteDefinitionConverter {
         return xml;
     }
 
-    private void fixElement(NodeList route) {
-        for (int i = 0; i < route.getLength(); i++) {
-            Node routeItem = route.item(i);
+    private void fixElement(NodeList routeItems) {
+        for (int i = 0; i < routeItems.getLength(); i++) {
+            Node routeItem = routeItems.item(i);
             if(routeItem.hasChildNodes())
                 fixElement(routeItem.getChildNodes());
 

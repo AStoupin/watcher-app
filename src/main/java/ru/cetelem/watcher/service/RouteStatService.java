@@ -1,6 +1,5 @@
 package ru.cetelem.watcher.service;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +20,7 @@ public class RouteStatService {
 	private static final int MAX_SIZE = 5;
 	public static final String EXCHANGE_DETAILS = "WAExchangeDetails" ;
 	
-	private HashMap<String, List<RouteStatItem>> routeStat = new HashMap<String, List<RouteStatItem>>();
+	private final HashMap<String, List<RouteStatItem>> routeStatRegistry = new HashMap<String, List<RouteStatItem>>();
 	
 	public RouteStatService(){
 		log.info("RouteStatService inited");
@@ -40,11 +39,11 @@ public class RouteStatService {
 	}
 	
 	public List<RouteStatItem> getStatListById(String routeID) {
-		List<RouteStatItem> result = routeStat.get(routeID);
+		List<RouteStatItem> result = routeStatRegistry.get(routeID);
 		
 		if(result==null) {
 			result = new ArrayList<RouteStatItem>();
-			routeStat.put(routeID, result);
+			routeStatRegistry.put(routeID, result);
 		}
 		return result;
 	}
@@ -68,7 +67,7 @@ public class RouteStatService {
 	
 	public List<RouteStatItem> getStatList(){
 		List<RouteStatItem> lst;
-		lst = routeStat.entrySet().stream().flatMap(k->k.getValue().stream())
+		lst = routeStatRegistry.entrySet().stream().flatMap(k->k.getValue().stream())
 					.sorted((si1, si2)->si2.getEventDate().compareTo(si1.getEventDate())).collect(Collectors.toList());
 		return lst;
 	}
