@@ -62,7 +62,6 @@ public class RouteService {
 
 		//try to load the xml
 		RouteDefinition routeDefinition = routeDefinitionConverter.getXmlAsRouteDefinition(routeId, xml);
-		routeDefinition.setId(routeId);
 		loadRouteDefinitionToCamel(routeId, routeDefinition, true);
 
 		save(routeDefinition);
