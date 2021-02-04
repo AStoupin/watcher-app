@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 @Component
 public class RouteDefinitionConverter {
@@ -40,15 +41,16 @@ public class RouteDefinitionConverter {
     @Autowired
     private RouteDefinitionEnricher routeDefinitionEnricher;
 
-    public RoutesDefinition getXmlAsRoutesDefinition(String xml) {
+    public RouteDefinition getXmlAsRoutesDefinition(String xml) {
         RoutesDefinition xmlDefinition = null;
         try {
             xmlDefinition = camelContext.loadRoutesDefinition(new ByteArrayInputStream(xml.getBytes()));
+
         } catch (Exception e) {
             log.error("Error during getXmlAsRoutesDefinition ", e);
             throw new RuntimeException(e);
         }
-        return xmlDefinition;
+        return xmlDefinition.getRoutes().stream().findFirst().orElse(null);
     }
 
     public String routeDefinitionToXml(RouteDefinition routeDefinition){
@@ -67,6 +69,9 @@ public class RouteDefinitionConverter {
         return xml;
     }
 
+    public RouteDefinition routeDefinitionPure(RouteDefinition routeDefinition){
+        return getXmlAsRoutesDefinition(routeDefinitionToXml(routeDefinition));
+    }
 
     private String prettyXml(String xml) throws ParserConfigurationException, SAXException, IOException, TransformerException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -101,7 +106,7 @@ public class RouteDefinitionConverter {
             if(routeAttrs!=null) {
                 if(routeAttrs.getNamedItem("customId")!=null)
                     routeAttrs.removeNamedItem("customId");
-                if(routeAttrs.getNamedItem("id")!=null)
+                if(routeAttrs.getNamedItem("id")!=null && !"route".equals(routeItem.getNodeName()))
                     routeAttrs.removeNamedItem("id");
 
             }

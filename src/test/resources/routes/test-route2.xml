@@ -1,0 +1,11 @@
+<route xmlns="http://camel.apache.org/schema/spring" autoStartup="false" customId="true" description=" asashdljh asljfh lasdj1111111 " id="My-File-Transfer12">
+    <from customId="true" uri="file://Temp/2?move=.done&amp;moveFailed=.error&amp;delay=44000&amp;include=.*\.txt1&amp;bridgeErrorHandler=true"/>
+    <choice customId="false" id="choice1">
+        <when customId="true" id="when1">
+            <simple>${header.CamelFileAbsolutePath} regex '.*[AUD].*\.*'</simple>
+        </when>
+        <otherwise customId="true" id="otherwise1">
+            <to customId="true" id="to3" uri="file://Temp/4"/>
+        </otherwise>
+    </choice>
+</route>

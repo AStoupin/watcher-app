@@ -242,7 +242,7 @@ public class RouteListController {
     public void delete() throws Exception {
     	if(selectedRoute.getSelectedRouteDefinition()==null)
     		return;	
-    	routeLoaderService.delete(selectedRoute.getSelectedRouteDefinition(), true);
+    	routeLoaderService.delete(selectedRoute.getSelectedRouteDefinition());
     	
     }
     

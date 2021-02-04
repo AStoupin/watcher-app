@@ -1,5 +1,6 @@
 package ru.cetelem.watcher.registry;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.model.RouteDefinition;
@@ -21,7 +22,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -52,8 +55,8 @@ public class RouteFileRegistry {
     CompleteProcessor completeProcessor;
 
 
-    public void loadRoutes() {
-        loadRoutes(xmlRoutesDirectory);
+    public List<RouteDefinition>  loadRoutes() {
+        return loadRoutes(xmlRoutesDirectory);
     }
 
 
@@ -62,8 +65,9 @@ public class RouteFileRegistry {
      * Load routes definition from repository (file system repository)
      * @param directory
      */
-    private void loadRoutes(String directory) {
+    private List<RouteDefinition> loadRoutes(String directory) {
         log.info("Loading additional Camel XML routes from: {}", directory);
+        List<RouteDefinition> routes = new ArrayList<RouteDefinition>();
         try {
             Resource[] xmlRoutes = applicationContext.getResources(directory);
             for (Resource xmlRoute : xmlRoutes) {
@@ -72,33 +76,19 @@ public class RouteFileRegistry {
                         || xmlRoute.getFile().getName().endsWith(DISABLED_EXT)))
                     continue;
 
-                loadRouteDefinitionFromFile(FilenameUtils.removeExtension(xmlRoute.getFilename()));
+
+                Optional.ofNullable(getRouteDefinition(FilenameUtils.removeExtension(xmlRoute.getFilename())))
+                        .ifPresent(rd->routes.add(rd));
+
+
             }
         } catch (Exception e) {
             log.error("No XML routes found in {}. Skipping XML routes detection.", directory);
         }
+
+        return routes;
     }
 
-
-
-    /**
-     *  find Route definition id
-     * @param id
-     * @return
-     */
-    public RouteDefinition findById(String id) {
-
-        return camelContext.getRouteDefinition(id);
-    }
-
-    public void save(String routeId, String xml) {
-        log.info("save xml stared  ");
-        log.debug("save xml stared for {}", xml);
-        RoutesDefinition rd = routeDefinitionConverter.getXmlAsRoutesDefinition(xml);
-        RouteDefinition routeDefinition = rd.getRoutes().get(0);
-        loadRouteDefinition(routeId, routeDefinition);
-        save(routeDefinition);
-    }
 
     public void save(RouteDefinition routeDefinition) {
         try {
@@ -123,77 +113,63 @@ public class RouteFileRegistry {
         }
     }
 
-    private void loadRouteDefinition(String routeId, RouteDefinition routeDefinition) {
-        log.info("loadRouteDefinition stared for {} ", routeId);
-        RouteDefinition oldRouteDefition = findById(routeId);
-        try {
-            if (oldRouteDefition != null) {
-                delete(oldRouteDefition, false);
-            }
-
-            routeDefinitionEnricher.cleanExtraRouteDefinition(routeDefinition);
-            routeDefinitionEnricher.enrichRouteDefinition(routeId, routeDefinition);
-
-            camelContext.addRouteDefinitions(Arrays.asList(routeDefinition));
-
-        } catch (Exception e) {
-            log.error("Error during loadRouteDefinition definition", e);
-            //rollback
-            delete(routeDefinition, false);
-            if (oldRouteDefition!=null) {
-                log.error("rolling back {}", oldRouteDefition.getId());
-                loadRouteDefinitionFromFile(oldRouteDefition.getId());
-            }
-
-            throw new RuntimeException(e);
-
-        }
-    }
 
 
 
-    private void loadRouteDefinitionFromFile(String id) {
+    public RouteDefinition getRouteDefinition(String id) {
         Resource xmlRoute = findRouteResource(id);
         if(xmlRoute==null)
-            return;
+            return null;
 
         boolean autoStart;
         try {
             autoStart = xmlRoute.getFile().getName().endsWith(ENABLED_EXT);
 
-            loadRouteDefinitionFromStream(id, autoStart, xmlRoute.getInputStream());
+            RouteDefinition routeDefinition = getRouteDefinitionFromStream(id, xmlRoute.getInputStream());
+
+            routeDefinition.setAutoStartup(String.valueOf(autoStart));
 
             log.info("Processed Route: {} - enabled: {}", xmlRoute.getFile().getName(), autoStart);
 
+            return routeDefinition;
+
         } catch (IOException e) {
             log.error("Error during add or start route file {} {} ", id, e);
+            return null;
         }
 
 
     }
 
 
-    protected void loadRouteDefinitionFromStream(String routeId, boolean autoStart, InputStream inputStream) {
+    protected RouteDefinition getRouteDefinitionFromStream(String routeId,  InputStream inputStream) {
         RouteDefinition routeDefinition=null;
         try {
             RoutesDefinition xmlDefinition = camelContext.loadRoutesDefinition(inputStream);
-            routeDefinition = xmlDefinition.getRoutes().get(0);
 
-            xmlDefinition.getRoutes().forEach(rd -> rd.autoStartup("false"));
+            if(xmlDefinition.getRoutes().size()==0)
+                return null;
 
-            loadRouteDefinition(routeId, routeDefinition);
-            if(autoStart)
-                camelContext.startRoute(routeId);
+            routeDefinition = routeDefinitionConverter.
+                        routeDefinitionPure(xmlDefinition.getRoutes().get(0));
+
+            routeDefinition.setId(routeId);
+            routeDefinitionEnricher.cleanExtraRouteDefinition(routeDefinition);
+            routeDefinitionEnricher.enrichRouteDefinition(routeId, routeDefinition);
+
+            return routeDefinition;
 
         } catch (Exception e) {
             log.error("Error during add or start route {} {} ", routeId, e);
+
+            return null;
         }
 
 
     }
 
 
-    public void delete(RouteDefinition routeDefinition, boolean deleteFile) {
+    public void delete(RouteDefinition routeDefinition) {
         try {
             log.info("save delete for {} ", routeDefinition.getId());
             File routeFile = getRouteFile(routeDefinition);
@@ -202,15 +178,14 @@ public class RouteFileRegistry {
                     .filter(r -> FilenameUtils.removeExtension(r.getFilename()).equals(routeDefinition.getId()))
                     .findFirst();
             if (rd.isPresent()) {
-                if(deleteFile) {
                     rd.get().getFile().delete();
                     log.info("deleted file {} ", routeFile.getName());
-                }
-
             }
-            camelContext.removeRoute(routeDefinition.getId());
-            camelContext.removeRouteDefinition(routeDefinition);
-            log.info("deleted route {} ", routeFile.getName());
+            else {
+                log.warn("no file of route {}  to delete", routeFile.getName());
+            }
+
+
         } catch (Exception e) {
             log.error("Error during delete definition", e);
         }
