@@ -2,13 +2,8 @@ package ru.cetelem.watcher.web;
 
 
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -17,7 +12,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.model.RouteDefinition;
-import org.joinfaces.autoconfigure.butterfaces.ButterfacesProperties.Integration.Primefaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +25,10 @@ import ru.cetelem.watcher.service.RouteStatService;
 import ru.cetelem.watcher.service.TemplateService;
 
 import org.primefaces.event.SelectEvent;
-import org.primefaces.model.FilterMeta;
-import org.primefaces.model.MatchMode;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSeparator;
 import org.primefaces.model.menu.MenuModel;
-import org.primefaces.model.menu.Separator;
 
 
 @Scope(value = "application")
@@ -49,7 +40,7 @@ public class RouteListController {
 	private CamelContext camelContext;
 
 	@Autowired
-	private RouteService routeLoaderService;
+	private RouteService routeService;
 	
 	@Autowired
 	RouteDefinitionExplorer routeDefinitionExplorer;
@@ -79,6 +70,7 @@ public class RouteListController {
 
 	public void init(){
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pageIndex", "0");
+		log.info("routeListController init");
 	}
 	
 
@@ -114,12 +106,11 @@ public class RouteListController {
 	public List<RouteDefinition> getRouteDefinitions(){
     	
     	
-    	return camelContext.getRouteDefinitions();
+    	return routeService.getRoutes();
     }
 
-    public List<Route> getRoutes(){
-    	return camelContext.getRoutes();
-    }
+
+
 	List<Route> filteredRoutes;
 
 	public List<Route> getFilteredRoutes(){
@@ -133,21 +124,24 @@ public class RouteListController {
 	
 
 
-    public ServiceStatus getRouteStatus(String id) {
-    	
-		return camelContext.getRouteStatus(id);
+    public String getRouteStatus(String id) {
+		String status = Optional.ofNullable(camelContext.getRouteStatus(id))
+				.map(s->s.name())
+				.orElse("Loading");
+    	log.info("status for {} is {}", id, status);
+		return status;
 	}
 
     
     public String getFromInfo(String id) {
     	
-		return routeDefinitionExplorer.getFromInfo(routeLoaderService.findById(id));
+		return routeDefinitionExplorer.getFromInfo(routeService.findById(id));
 	}    
 
     
     public String getToInfo(String id) {
     	
-		return routeDefinitionExplorer.getToInfo(routeLoaderService.findById(id));
+		return routeDefinitionExplorer.getToInfo(routeService.findById(id));
 	}
 
 	public String getFailuresCount(String id) {
@@ -180,7 +174,7 @@ public class RouteListController {
     		return;	
     	try {
 	    	camelContext.startRoute(selectedRoute.getSelectedRouteDefinition().getId());
-	    	routeLoaderService.save(selectedRoute.getSelectedRouteDefinition());
+	    	routeService.save(selectedRoute.getSelectedRouteDefinition());
     	}
     	catch(Exception e) {
     		log.error(e.getMessage());
@@ -195,7 +189,7 @@ public class RouteListController {
     		return;	
     	try {
 	    	camelContext.stopRoute(selectedRoute.getSelectedRouteDefinition().getId());
-	    	routeLoaderService.save(selectedRoute.getSelectedRouteDefinition());
+	    	routeService.save(selectedRoute.getSelectedRouteDefinition());
     	}
     	catch(Exception e) {
     		log.error(e.getMessage());
@@ -209,7 +203,7 @@ public class RouteListController {
     	if(selectedRoute.getSelectedRouteDefinition()==null)
     		return;
     	
-    	if (ServiceStatus.Started.equals(getRouteStatus(selectedRoute.getSelectedRouteDefinition().getId())) )
+    	if (ServiceStatus.Started.name().equals(getRouteStatus(selectedRoute.getSelectedRouteDefinition().getId())) )
     		stop();
     	else
     		start();
@@ -232,17 +226,11 @@ public class RouteListController {
     	return "";
     }
 
-    public void save() throws Exception {
-    	if(selectedRoute.getSelectedRouteDefinition()==null)
-    		return;	
-    	routeLoaderService.save(selectedRoute.getSelectedRouteDefinition());
-    	
-    }
     
     public void delete() throws Exception {
     	if(selectedRoute.getSelectedRouteDefinition()==null)
     		return;	
-    	routeLoaderService.delete(selectedRoute.getSelectedRouteDefinition());
+    	routeService.delete(selectedRoute.getSelectedRouteDefinition());
     	
     }
     

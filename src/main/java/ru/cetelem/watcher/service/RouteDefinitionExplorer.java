@@ -12,7 +12,10 @@ public class RouteDefinitionExplorer {
     private static final String SEPARATOR = "&";
     
 	public String getFromInfo(RouteDefinition routeDefinition) {
-		return getUriInfo(routeDefinition.getInputs().get(0).getEndpointUri());
+		if(routeDefinition.getInputs().size()==0){
+			return "";
+		}
+		return  getUriInfo(routeDefinition.getInputs().get(0).getEndpointUri());
 	}
 	
 	

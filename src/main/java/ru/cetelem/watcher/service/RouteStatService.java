@@ -53,7 +53,7 @@ public class RouteStatService {
 				.stream().filter(ri->!ri.isSuccessed()).count();
 	}
 
-	private void addStatItem(String routeId, RouteStatItem routeStatItem) {
+	public void addStatItem(String routeId, RouteStatItem routeStatItem) {
 		List<RouteStatItem> lst = getStatListById(routeId);
 		lst.add(routeStatItem);
 		if (lst.size() > MAX_SIZE) lst.remove(0);

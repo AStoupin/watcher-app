@@ -5,11 +5,15 @@ import org.apache.camel.model.OnExceptionDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RouteDefinitionEnricher {
+    private static final Logger log = LoggerFactory.getLogger(RouteDefinitionEnricher.class);
+
     @Autowired
     private ErrorProcessor errorProcessor;
     @Autowired
@@ -26,6 +30,11 @@ public class RouteDefinitionEnricher {
      */
     public void enrichRouteDefinition(String routeId, RouteDefinition routeDefinition) {
         routeDefinition.setId(routeId);
+
+        if(routeDefinition.getInputs().size()==0){
+            log.warn("no inputs in routeDefinition {} ", routeDefinition.getId());
+            return;
+        }
 
         routeDefinition.onException(Exception.class).process(errorProcessor);
         routeDefinition.onCompletion().process(completeProcessor);
@@ -52,6 +61,11 @@ public class RouteDefinitionEnricher {
      * @param routeDefinition
      */
     public void cleanExtraRouteDefinition(RouteDefinition routeDefinition) {
+
+        if(routeDefinition.getInputs().size()==0){
+            log.warn("no inputs in routeDefinition {} ", routeDefinition.getId());
+            return;
+        }
 
         if (routeDefinition.getInputs().get(0).getEndpointUri().startsWith("ftp:")) {
             routeDefinition.getInputs().get(0).setUri(
