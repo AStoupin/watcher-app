@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsf/composite/components">
+
+
+<ui:composition template="layout.xhtml">
+	<ui:define name="title">
+        Uri wizard
+        		
+    </ui:define>
+
+
+
+	<ui:define name="content">
+
+
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{routeMasterController.init()}" />
+		</f:metadata>
+
+		<h:form>
+
+
+			<div class="ui-g">
+				<div class="ui-g-3 ui-g-offset-4">
+					<p:steps class="p-d-flex" activeIndex="#{routeMasterController.activeStep}">
+						<p:menuitem value="Source"/>
+						<p:menuitem value="Destination"/>
+						<p:menuitem value="Check"/>
+					</p:steps>
+				</div>
+				<div class="ui-g-5"></div>
+				<div class="ui-g-3"></div>
+
+				<div class="ui-g-6 p-d-#{routeMasterController.showForStep(0)}">
+						<c:uri-editor uri="#{routeMasterController.uriFrom}"  rendered="#{routeMasterController.activeStep==0}" />
+				</div>
+				<div class="ui-g-6 p-d-#{routeMasterController.showForStep(1)}">
+					<c:uri-editor uri="#{routeMasterController.uriTo}"  rendered="#{routeMasterController.activeStep==1}"  />
+				</div>
+
+				<div class="ui-g-6 p-d-#{routeMasterController.showForStep(2)}">
+
+					<pe:codeMirror id="route-xml" mode="xml" theme="material"
+								   widgetVar="route-xml" value="#{routeMasterController.xml}"
+								   keyMap="default" lineNumbers="true" lineWrapping="true"
+								   matchBrackets="true" />
+
+
+				</div>
+			</div>
+
+
+			<div class="ui-g-12">
+				<div class="ui-g-1 ui-g-offset-7">
+					<p:commandButton value="Back"  style="width:100%"  rendered="#{routeMasterController.activeStep != 0}"
+									 update="@form" action="#{routeMasterController.goBack()}" />
+				</div>
+				<div class="ui-g-1">
+					<p:commandButton value="#{routeMasterController.activeStep==2?'Finish':'Next'}" style="width:100%"
+									 update="@form"  action="#{routeMasterController.goNext()}" />
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

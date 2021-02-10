@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>web-app</groupId>
 	<artifactId>watcher-app</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -80,6 +80,14 @@
 		<dependency>
 			<groupId>org.glassfish.jaxb</groupId>
 			<artifactId>jaxb-runtime</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.16</version>
+			<scope>provided</scope>
 		</dependency>
 
 

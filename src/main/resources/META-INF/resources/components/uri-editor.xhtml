@@ -1,0 +1,129 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	  xmlns:c="http://java.sun.com/jsf/composite/components">
+
+<composite:interface>
+	<composite:attribute name="uri" />
+	<composite:attribute name="rendered" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<p:panel id="basic" rendered="#{cc.attrs.rendered}">
+		<div class="ui-g">
+
+			<div class="ui-g-12">
+				<p:remoteCommand name="rc2" update="@form" />
+
+				<span class="ui-g-2 p-ml-2"  style="margin-top: 1em">
+					<label>URI #{cc.attrs.uri.uriDirection}</label>
+			     </span>
+
+				<p:selectOneButton value="#{cc.attrs.uri.uriType}" class="ui-g-6  p-mt-2" unselectable="false" immediate="true"  onchange="rc2()" >
+					<f:selectItem itemLabel="local" itemValue="local"/>
+					<f:selectItem itemLabel="ftp" itemValue="ftp"/>
+					<f:selectItem itemLabel="sftp" itemValue="sftp"/>
+					<f:selectItem itemLabel="ftps" itemValue="ftps"/>
+					<f:selectItem itemLabel="smb" itemValue="smb"/>
+				</p:selectOneButton>
+
+			</div>
+			<div class="ui-g-12 p-d-#{uriEditorController.showRemote(cc.attrs.uri)}"   >
+				<span class="ui-float-label ui-g-12  p-mt-2" >
+				   <p:inputText id="float-input-server"  onchange="rc2()"  value="#{cc.attrs.uri.serverName}" class="ui-g-12 p-pl-2"/>
+				   <p:outputLabel for="@previous"  class="p-pl-2"    value="server name (ssecb01.jv.ru)"/>
+			   </span>
+			</div>
+			<div class="ui-g-6 p-d-#{uriEditorController.showRemote(cc.attrs.uri)}"  >
+				<span class="ui-float-label ui-g-12  p-mt-2 ">
+				   <p:inputText id="float-input-login" widgetVar="float-input-login" class="ui-g-12"   onchange="rc2()"  value="#{cc.attrs.uri.accountName}" />
+				   <p:outputLabel for="@previous"  class="p-pl-2"   value="login (someAccount)"/>
+			   </span>
+			</div>
+			<div class="ui-g-6 p-d-#{uriEditorController.showRemote(cc.attrs.uri)}" >
+				<span class="ui-float-label ui-g-12  p-mt-2">
+				   <p:inputText id="float-input-password" class="ui-g-12"   onchange="rc2()"  value="#{cc.attrs.uri.accountPassword}"  />
+				   <p:outputLabel for="@previous"  class="p-pl-2"    value="passowrd (12345)"/>
+			   </span>
+			</div>
+
+			<div class="ui-g-12" >
+				<span class="ui-float-label ui-g-12  p-mt-2">
+				   <p:inputText id="float-input-folder" class="ui-g-12 p-pl-2"  onchange="rc2()"  value="#{cc.attrs.uri.folder}"/>
+				   <p:outputLabel for="@previous"  class="p-pl-2"    value="folder (/temp)"/>
+			   </span>
+			</div>
+
+			<div class="ui-g-6 p-d-#{uriEditorController.showFrom(cc.attrs.uri)}" >
+				<span class="ui-float-label ui-g-12  p-mt-2">
+				   <p:inputText id="float-input-filemask" class="ui-g-12" onchange="rc2()"  value="#{cc.attrs.uri.fileMask}"/>
+				   <p:outputLabel for="@previous"  class="p-pl-2"    value="file mask(*.txt)"/>
+			   </span>
+			</div>
+
+
+			<div class="ui-g-6 p-d-#{uriEditorController.showFrom(cc.attrs.uri)}" >
+
+
+					<p:inputNumber id="delay"  onchange="rc2()"  value="#{cc.attrs.uri.delay}"   symbol=" secs scan" symbolPosition="s"  class="ui-g-12  p-mt-2" decimalPlaces="0" />
+
+
+			</div>
+
+			<div class="ui-g-12 p-d-#{uriEditorController.showFrom(cc.attrs.uri)}" >
+				<p:selectOneButton value="#{cc.attrs.uri.transferType}" class="ui-g-12 p-mt-2" unselectable="false"  immediate="true"  onchange="rc2()" >
+					<f:selectItem itemLabel="moveAndDelete" itemValue="moveAndDelete"/>
+					<f:selectItem itemLabel="moveAndStore" itemValue="moveAndStore"/>
+
+				</p:selectOneButton>
+			</div>
+
+
+
+			<div class="ui-g-6 p-d-#{uriEditorController.showMove(cc.attrs.uri)}"  >
+				<span class="ui-float-label ui-g-12  p-mt-2">
+					<p:inputText id="float-input-moveok"  class="ui-g-12"  value="#{cc.attrs.uri.move}" />
+				   <p:outputLabel for="@previous"  class="p-pl-2"    value="move folder ok (.done)"/>
+			   </span>
+			</div>
+
+			<div class="ui-g-6 p-d-#{uriEditorController.showMove(cc.attrs.uri)}" >
+				<span class="ui-float-label ui-g-12	  p-mt-2">
+					<p:inputText id="float-input-moveko" class="ui-g-12"    value="#{cc.attrs.uri.moveFailed}"  />
+				   <p:outputLabel for="@previous"  class="p-pl-2"    value="move folder error (.error)"/>
+			   </span>
+			</div>
+
+			<div class="ui-g-12" >
+				<p:selectOneButton value="#{cc.attrs.uri.flagProcess}" class="ui-g-6 p-mt-2" unselectable="false" immediate="true"  onchange="rc2()" >
+					<f:selectItem itemLabel="fileOnly" itemValue="fileOnly"/>
+					<f:selectItem itemLabel="fileAndFlag" itemValue="fileAndFlag"/>
+
+				</p:selectOneButton>
+			</div>
+
+			<div class="ui-g-12 p-d-#{uriEditorController.showFlag(cc.attrs.uri)}" >
+				<span class="ui-float-label ui-g-12  p-mt-2">
+					<p:inputText id="float-input-flagext"  class="ui-g-12"  value="#{cc.attrs.uri.doneFileName}"   />
+				   <p:outputLabel for="@previous"  class="p-pl-2"    value="flagfile extension (.ok)"/>
+			   </span>
+			</div>
+
+			<div class="ui-g-12">
+				<c:uri-check-button id="uriCheck" uriValue="#{uriEditorController.getUriBase(cc.attrs.uri)}" value="URI check..."></c:uri-check-button>
+			</div>
+		</div>
+	</p:panel>
+
+
+</composite:implementation>
+</html>

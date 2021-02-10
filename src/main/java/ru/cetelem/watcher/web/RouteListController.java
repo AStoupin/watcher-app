@@ -87,8 +87,15 @@ public class RouteListController {
 	                .url("/route-add/"+TemplateService.EMPTY_TEMPLATE_KEY)
 	                .build();
 		 templates.getElements().add(item);
-		 templates.getElements().add(new DefaultSeparator());
-		 
+
+
+		DefaultMenuItem itemWizard = DefaultMenuItem.builder()
+				.value(TemplateService.WIZARD_TEMPLATE_KEY)
+				.url("/master")
+				.build();
+		templates.getElements().add(itemWizard);
+		templates.getElements().add(new DefaultSeparator());
+
 		 
 		for (String key: templateService.getTemplates().keySet()) {
 			 if(TemplateService.EMPTY_TEMPLATE_KEY.equals(key))

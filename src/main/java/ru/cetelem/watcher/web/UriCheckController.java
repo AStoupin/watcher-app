@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
 import org.apache.camel.CamelContext;
@@ -16,13 +19,16 @@ import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import ru.cetelem.watcher.service.UriCheckService;
 
 @Component(value = "uriCheckController")
-public class UriCheckController {
+//@FacesComponent("uriCheckController")
+@Scope(value = "session" )
+public class UriCheckController extends UINamingContainer {
 	private static final Logger log = LoggerFactory.getLogger(UriCheckController.class);
 
 	private String uri;
@@ -30,8 +36,14 @@ public class UriCheckController {
 	@Autowired
 	UriCheckService uriCheckService;
 	
-	public void init() {
-		uri = "Input URI here";
+	public void init(String uriValue) {
+		log.info("init started {}", this.getClientId());
+
+		/*if (FacesContext.getCurrentInstance().isPostback()){
+			return;
+		}
+		uri = "Input URI here";*/
+		setUri(uriValue);
 	}
 
 

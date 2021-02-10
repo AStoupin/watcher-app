@@ -37,6 +37,7 @@ public class TemplateService {
 	private static final Logger log = LoggerFactory.getLogger(TemplateService.class);
 	
 	public static final String EMPTY_TEMPLATE_KEY  = "Empty";
+	public static final String WIZARD_TEMPLATE_KEY  = "Wizard...";
 
 	
 	@Value("${xmlTemplates.directory}")

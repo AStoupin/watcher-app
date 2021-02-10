@@ -9,12 +9,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 
-<composite:interface>
+<composite:interface >
 	<composite:attribute name="value" />
+	<composite:attribute name="uriValue" />
+
 </composite:interface>
 
 <composite:implementation>
 
+
+	<p:remoteCommand name="rc" update="dlgUriCheck"
+					 action="#{uriCheckController.init(cc.attrs.uriValue)}"
+					 oncomplete="PF('dlgUriCheck').show();"/>
 
 	<p:dialog header="Check an URI" widgetVar="dlgUriCheck"
 		id="dlgUriCheck">
@@ -56,7 +62,7 @@
 
 
 	<p:commandButton value="#{cc.attrs.value}" style="width:100%"
-		onclick="PF('dlgUriCheck').show();">
+		onclick="rc();">
 
 	</p:commandButton>
 

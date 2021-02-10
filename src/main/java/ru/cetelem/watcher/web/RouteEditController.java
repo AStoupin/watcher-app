@@ -54,33 +54,54 @@ public class RouteEditController {
 
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pageIndex", "-1");
 
-		refer = FacesContext.getCurrentInstance().getExternalContext().getRequestHeaderMap().get("referer");
-		refer = refer==null?"/":refer;
+		this.refer = FacesContext.getCurrentInstance().getExternalContext().getRequestHeaderMap().get("referer");
+		this.refer = this.refer==null?"/":this.refer;
 				 
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
-		routeId = paramMap.get("routeId");		
-		isNew = true;
-		
+		this.routeId = paramMap.get("routeId");
+		this.isNew = true;
+
 		
 		if (routeId!=null) {
-			selectedRoute.setSelectedRouteDefinition(routeLoaderService.findById(routeId));
-			
-			xml = routeDefinitionConverter.routeDefinitionToXml(selectedRoute.getSelectedRouteDefinition());
-			routeId = selectedRoute.getSelectedRouteDefinition().getId();
+			initEditMode(routeId);
+		}
+		else if (paramMap.get("templateId") != null) {
+			initNewByTemplate(paramMap.get("templateId"));
 
-			isNew = false;
+		} else if (paramMap.get("templateId") == null  && routeId == null ) {
+			initNewByWizard();
 		}
-		else {
-			routeId="route-name";
-			xml=templateService.getTemplates().get(paramMap.get("templateId"));
-		}
+
 		
 		log.info("init started {}", routeId);
 	}
-	
-	
-	
+
+	private void initNewByWizard() {
+		log.info("init initNewByWizard");
+		this.routeId="route-name";
+		this.refer = "/";
+		this.isNew = true;
+	}
+
+	private void initNewByTemplate(String templateId) {
+		log.info("init initNewByTemplate {}",templateId);
+		this.routeId="route-name";
+		this.xml=templateService.getTemplates().get(templateId);
+	}
+
+	private void initEditMode(String routeId) {
+		log.info("init initEditMode {}", routeId);
+
+		selectedRoute.setSelectedRouteDefinition(routeLoaderService.findById(routeId));
+
+		this.xml = routeDefinitionConverter.routeDefinitionToXml(selectedRoute.getSelectedRouteDefinition());
+		this.routeId = selectedRoute.getSelectedRouteDefinition().getId();
+
+		this.isNew = false;
+	}
+
+
 	public SelectedRoute getSelectedRoute() {
 		return selectedRoute;
 	}
