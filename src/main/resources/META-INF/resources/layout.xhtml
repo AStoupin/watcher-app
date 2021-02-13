@@ -3,7 +3,9 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	 xmlns:p="http://primefaces.org/ui"
+	  xmlns:sec="http://www.springframework.org/security/tags"
+	  >
 <f:view>
 
 	<h:head>
@@ -28,7 +30,7 @@
 		</p:dialog>
 
 
-		<h:form>
+
 
 			<p:panel id="basic">
 				<div class="ui-g">
@@ -40,19 +42,33 @@
 						<h:outputText
 							value=" - #{applicationSettingsService.buildVersion}" />
 					</div>
-					<div class="ui-g-9	main-panel">
-						<p:tabMenu activeIndex="#{sessionScope['pageIndex']}">
-							<p:menuitem url="/" value="Route list" icon="pi pi-star">
-							</p:menuitem>
-							<p:menuitem url="/monitor" value="Route monitor"
-								icon="pi pi-search">
-							</p:menuitem>
-						</p:tabMenu>
+					<div class="ui-g-7	main-panel">
+						<h:form >
+							<p:tabMenu activeIndex="#{sessionScope['pageIndex']}">
+								<p:menuitem url="/" value="Route list" icon="pi pi-star">
+								</p:menuitem>
+								<p:menuitem url="/monitor" value="Route monitor"
+									icon="pi pi-search">
+								</p:menuitem>
+							</p:tabMenu>
+						</h:form>
 					</div>
+
+					<ui:fragment rendered="#{sessionInfoService.ldapEnabled}" >
+						<div class="ui-g-2" >
+							<h:form >
+
+								<p:commandLink  action="#{loginController.logout()}" class="login-button"   ajax="true" >
+									<h:outputText value=" #{loginController.fullName==''?'Login':'Logout  '.concat(loginController.fullName)}"/>
+								</p:commandLink>
+
+							</h:form>
+						</div>
+					</ui:fragment>
 				</div>
 			</p:panel>
 
-		</h:form>
+
 
 
 

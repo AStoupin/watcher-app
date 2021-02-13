@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="layout.xhtml">
+	<ui:define name="title">
+    	Login
+	</ui:define>
+
+	<ui:define name="content">
+
+		<h:form prependId="false">
+
+			<f:metadata>
+				<f:event type="preRenderView" listener="#{loginController.init()}" />
+			</f:metadata>
+
+			<div class="ui-g p-mt-6">
+
+				<div class="ui-g-offset-3">
+					<p:graphicImage name="login.jpg" library="images" height="300px" style="border-radius: 4px;" />
+				</div>
+				<div class="ui-g-4">
+					<div class="ui-g-12">
+					<p:outputLabel value="login failed: user and/or password are wrong. "
+								   rendered="${!empty param['error']}"/>
+					</div>
+					<div class="ui-g-12 p-mt-6">
+
+					</div>
+					<div class="ui-g-3">
+
+						<p:outputLabel value="Login:" />
+					</div>
+					<div class="ui-g-9">
+						<p:inputText name="username" id="username" style="width:100%" />
+					</div>
+
+					<div class="ui-g-3">
+						<p:outputLabel value="Password:" />
+					</div>
+					<div class="ui-g-9">
+						<p:password id="password" name="password" style="width:100%"  />
+					</div>
+
+					<div class="ui-g-12">
+						<p:commandButton  id="submit"  value="login" look="primary" style="width:100%" />
+					</div>
+
+				</div>
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

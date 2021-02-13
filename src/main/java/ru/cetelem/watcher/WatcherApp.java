@@ -28,7 +28,7 @@ import ru.cetelem.watcher.service.ErrorProcessor;
 
 @EnableAutoConfiguration
 @ComponentScan({"ru.cetelem.watcher.web", "ru.cetelem.watcher.service",
-                 "ru.cetelem.watcher.registry"})
+                 "ru.cetelem.watcher.registry", "ru.cetelem.watcher.config"})
 @ImportResource("classpath:camel-context.xml")
 @Configuration
 @RewriteConfiguration
@@ -42,6 +42,8 @@ public class WatcherApp  extends HttpConfigurationProvider
         SpringApplication.run(WatcherApp.class, args);
 
     }
+
+
     @Override
     public void customize(ConfigurableServletWebServerFactory factory) {
         MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);

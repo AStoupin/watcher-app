@@ -164,18 +164,32 @@ public class RouteFileRegistry {
 
 
     private File getRouteFile(RouteDefinition routeDefinition) {
-        Resource[] xmlRoutes = null;
+
         File f = null;
         ServiceStatus ss = camelContext.getRouteStatus(routeDefinition.getId());
         String ext = ss != null && ss.isStopped() ? DISABLED_EXT : ENABLED_EXT;
         String fileName = routeDefinition.getId() + ext;
         try {
-            xmlRoutes = applicationContext.getResources(xmlRoutesDirectory);
-            f = new File(xmlRoutes[0].getFile().getParentFile(), fileName);
+            File routesDir = getRoutesDir();
+
+            f = new File(routesDir, fileName);
         } catch (IOException e) {
             log.error("Error during getRouteFile", e);
         }
         return f;
+    }
+
+    private File getRoutesDir() throws IOException {
+        File routesDir = new File(applicationContext
+                .getResource(xmlRoutesDirectory)
+                .getFile().getParent()).getAbsoluteFile();
+
+        if(!routesDir.exists()) {
+            log.info("Routes dir {} doesn't exist. Will be created.", xmlRoutesDirectory);
+
+            routesDir.mkdir();
+        }
+        return routesDir;
     }
 
     private Resource findRouteResource(String routeId) {

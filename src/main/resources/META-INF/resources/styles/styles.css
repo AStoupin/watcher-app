@@ -16,6 +16,9 @@ html :not(.ui-state-highlight):not(.ui-state-hover).ui-widget-content.ui-datatab
 	background-color: var(--var-main-background-odd-color) !important;
 }
 
+body .ui-tabmenu .ui-tabmenu-nav  {
+	margin-bottom: -1px;
+}
 
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active {
 	background-color: var(--wa-background-color);
@@ -143,4 +146,10 @@ div.logo-app-name{
 	color:var(--wa-main-color);
 	font-family: "Open Sans","Helvetica Neue",sans-serif;
 	font-weight: 400;
+}
+.login-button {
+	display: inline-block;
+	position: relative;
+	float: right;
+	padding-right: 0px;
 }
