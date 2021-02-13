@@ -46,6 +46,12 @@ public class RouteDefinitionConverter {
     @Autowired
     private RouteDefinitionEnricher routeDefinitionEnricher;
 
+    /**
+     * Get RouteDefinition by specified xml
+     * @param routeId
+     * @param xml
+     * @return RouteDefinition
+     */
     public RouteDefinition getXmlAsRouteDefinition(String routeId, String xml) {
         RouteDefinition routeDefinition;
         try {
@@ -75,6 +81,11 @@ public class RouteDefinitionConverter {
         return routeDefinition;
     }
 
+    /**
+     *  get Xml of specified RouteDefinition
+     * @param routeDefinition
+     * @return
+     */
     public String routeDefinitionToXml(RouteDefinition routeDefinition){
         String xml = "";
         try {
@@ -91,7 +102,17 @@ public class RouteDefinitionConverter {
         return xml;
     }
 
-
+    /**
+     * remove span attributes from routeDefinition xml:
+     *           - id
+     *           - customId
+     * @param xml
+     * @return xml
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     * @throws TransformerException
+     */
     private String prettyXml(String xml) throws ParserConfigurationException, SAXException, IOException, TransformerException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
@@ -133,7 +154,11 @@ public class RouteDefinitionConverter {
     }
 
 
-
+    /**
+     *  get baseUri string (f.e. ftp:/login@server/folder?password=xxx) by specified UriData
+     * @param uriData
+     * @return
+     */
 
     public static String getUriBase(UriData uriData){
         String result = "";
@@ -155,7 +180,12 @@ public class RouteDefinitionConverter {
         return result;
     }
 
-
+    /**
+     *  get xml route by specified  uriFrom and uriTo
+     * @param uriFrom
+     * @param uriTo
+     * @return xml-string
+     */
     public String getRouteXml(UriData uriFrom, UriData uriTo){
         String from = new UriJoiner(getUriBase(uriFrom))
                 .add(getUriFlagInfo(uriFrom))
