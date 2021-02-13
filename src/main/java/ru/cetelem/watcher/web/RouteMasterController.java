@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ru.cetelem.watcher.model.UriData;
+import ru.cetelem.watcher.service.RouteDefinitionConverter;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -36,7 +37,9 @@ public class RouteMasterController implements Serializable {
     private String xml;
 
     @Autowired
-    UriEditorController uriEditorController;
+    RouteDefinitionConverter routeDefinitionConverter;
+
+
     @Autowired
     RouteEditController routeEditController;
 
@@ -62,7 +65,7 @@ public class RouteMasterController implements Serializable {
 
         activeStep++;
         if (activeStep==2){
-            xml = uriEditorController.getRouteXml(uriFrom, uriTo);
+            xml = routeDefinitionConverter.getRouteXml(uriFrom, uriTo);
         }
         return ;
     }

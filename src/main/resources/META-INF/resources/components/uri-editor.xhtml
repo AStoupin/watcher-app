@@ -5,12 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	  xmlns:c="http://java.sun.com/jsf/composite/components">
 
-<composite:interface>
+<composite:interface componentType="uriEditorController">
 	<composite:attribute name="uri" />
 	<composite:attribute name="rendered" />
 
@@ -37,19 +37,19 @@
 				</p:selectOneButton>
 
 			</div>
-			<div class="ui-g-12 p-d-#{uriEditorController.showRemote(cc.attrs.uri)}"   >
+			<div class="ui-g-12 p-d-#{cc.showRemote()}"   >
 				<span class="ui-float-label ui-g-12  p-mt-2" >
 				   <p:inputText id="float-input-server"  onchange="rc2()"  value="#{cc.attrs.uri.serverName}" class="ui-g-12 p-pl-2"/>
 				   <p:outputLabel for="@previous"  class="p-pl-2"    value="server name (ssecb01.jv.ru)"/>
 			   </span>
 			</div>
-			<div class="ui-g-6 p-d-#{uriEditorController.showRemote(cc.attrs.uri)}"  >
+			<div class="ui-g-6 p-d-#{cc.showRemote()}"  >
 				<span class="ui-float-label ui-g-12  p-mt-2 ">
 				   <p:inputText id="float-input-login" widgetVar="float-input-login" class="ui-g-12"   onchange="rc2()"  value="#{cc.attrs.uri.accountName}" />
 				   <p:outputLabel for="@previous"  class="p-pl-2"   value="login (someAccount)"/>
 			   </span>
 			</div>
-			<div class="ui-g-6 p-d-#{uriEditorController.showRemote(cc.attrs.uri)}" >
+			<div class="ui-g-6 p-d-#{cc.showRemote()}" >
 				<span class="ui-float-label ui-g-12  p-mt-2">
 				   <p:inputText id="float-input-password" class="ui-g-12"   onchange="rc2()"  value="#{cc.attrs.uri.accountPassword}"  />
 				   <p:outputLabel for="@previous"  class="p-pl-2"    value="passowrd (12345)"/>
@@ -63,7 +63,7 @@
 			   </span>
 			</div>
 
-			<div class="ui-g-6 p-d-#{uriEditorController.showFrom(cc.attrs.uri)}" >
+			<div class="ui-g-6 p-d-#{cc.showFrom()}" >
 				<span class="ui-float-label ui-g-12  p-mt-2">
 				   <p:inputText id="float-input-filemask" class="ui-g-12" onchange="rc2()"  value="#{cc.attrs.uri.fileMask}"/>
 				   <p:outputLabel for="@previous"  class="p-pl-2"    value="file mask(*.txt)"/>
@@ -71,7 +71,7 @@
 			</div>
 
 
-			<div class="ui-g-6 p-d-#{uriEditorController.showFrom(cc.attrs.uri)}" >
+			<div class="ui-g-6 p-d-#{cc.showFrom()}" >
 
 
 					<p:inputNumber id="delay"  onchange="rc2()"  value="#{cc.attrs.uri.delay}"   symbol=" secs scan" symbolPosition="s"  class="ui-g-12  p-mt-2" decimalPlaces="0" />
@@ -79,7 +79,7 @@
 
 			</div>
 
-			<div class="ui-g-12 p-d-#{uriEditorController.showFrom(cc.attrs.uri)}" >
+			<div class="ui-g-12 p-d-#{cc.showFrom()}" >
 				<p:selectOneButton value="#{cc.attrs.uri.transferType}" class="ui-g-12 p-mt-2" unselectable="false"  immediate="true"  onchange="rc2()" >
 					<f:selectItem itemLabel="moveAndDelete" itemValue="moveAndDelete"/>
 					<f:selectItem itemLabel="moveAndStore" itemValue="moveAndStore"/>
@@ -89,14 +89,14 @@
 
 
 
-			<div class="ui-g-6 p-d-#{uriEditorController.showMove(cc.attrs.uri)}"  >
+			<div class="ui-g-6 p-d-#{cc.showMove()}"  >
 				<span class="ui-float-label ui-g-12  p-mt-2">
 					<p:inputText id="float-input-moveok"  class="ui-g-12"  value="#{cc.attrs.uri.move}" />
 				   <p:outputLabel for="@previous"  class="p-pl-2"    value="move folder ok (.done)"/>
 			   </span>
 			</div>
 
-			<div class="ui-g-6 p-d-#{uriEditorController.showMove(cc.attrs.uri)}" >
+			<div class="ui-g-6 p-d-#{cc.showMove()}" >
 				<span class="ui-float-label ui-g-12	  p-mt-2">
 					<p:inputText id="float-input-moveko" class="ui-g-12"    value="#{cc.attrs.uri.moveFailed}"  />
 				   <p:outputLabel for="@previous"  class="p-pl-2"    value="move folder error (.error)"/>
@@ -111,7 +111,7 @@
 				</p:selectOneButton>
 			</div>
 
-			<div class="ui-g-12 p-d-#{uriEditorController.showFlag(cc.attrs.uri)}" >
+			<div class="ui-g-12 p-d-#{cc.showFlag()}" >
 				<span class="ui-float-label ui-g-12  p-mt-2">
 					<p:inputText id="float-input-flagext"  class="ui-g-12"  value="#{cc.attrs.uri.doneFileName}"   />
 				   <p:outputLabel for="@previous"  class="p-pl-2"    value="flagfile extension (.ok)"/>
@@ -119,7 +119,7 @@
 			</div>
 
 			<div class="ui-g-12">
-				<c:uri-check-button id="uriCheck" uriValue="#{uriEditorController.getUriBase(cc.attrs.uri)}" value="URI check..."></c:uri-check-button>
+				<c:uri-check-button id="uriCheck" uriValue="#{cc.getUriBase(cc.attrs.uri)}" value="URI check..."></c:uri-check-button>
 			</div>
 		</div>
 	</p:panel>

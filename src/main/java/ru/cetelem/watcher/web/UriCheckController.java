@@ -25,40 +25,35 @@ import org.springframework.stereotype.Service;
 
 import ru.cetelem.watcher.service.UriCheckService;
 
-@Component(value = "uriCheckController")
-//@FacesComponent("uriCheckController")
-@Scope(value = "session" )
+//@Component(value = "uriCheckController")
+@FacesComponent("uriCheckController")
+@Scope(value = "view" )
 public class UriCheckController extends UINamingContainer {
 	private static final Logger log = LoggerFactory.getLogger(UriCheckController.class);
 
 	private String uri;
 
-	@Autowired
-	UriCheckService uriCheckService;
 	
 	public void init(String uriValue) {
 		log.info("init started {}", this.getClientId());
 
-		/*if (FacesContext.getCurrentInstance().isPostback()){
-			return;
-		}
-		uri = "Input URI here";*/
 		setUri(uriValue);
 	}
 
 
 
 	public void check() {
-		String checkResult = uriCheckService.check(getUri());
+		String checkResult = UriCheckService.getCurrentInstance().check(getUri());
 		
         FacesContext context = FacesContext.getCurrentInstance();
-        
+
 		if ("ok".equals(checkResult)) {
 			context.addMessage("uri-error-message", new FacesMessage(FacesMessage.SEVERITY_INFO, "Info",  checkResult) );
 		}
 		else {
 			context.addMessage("uri-error-message", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",  checkResult) );
 		}
+
 	}
 	
 	public String getUri() {

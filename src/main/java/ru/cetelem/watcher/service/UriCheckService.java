@@ -17,11 +17,24 @@ import org.springframework.stereotype.Service;
 
 
 @Service
+
 public class UriCheckService {
 	private static final Logger log = LoggerFactory.getLogger(UriCheckService.class);
 	
-	@Autowired
+
 	CamelContext camelContext;
+
+	private static UriCheckService instance;
+
+	public static UriCheckService getCurrentInstance(){
+		return instance;
+	}
+
+	@Autowired
+	public UriCheckService(CamelContext camelContext){
+		this.camelContext = camelContext;
+		this.instance = this;
+	}
 
 	public static class TestRouteBuilder extends RouteBuilder {
 		private String uri;
