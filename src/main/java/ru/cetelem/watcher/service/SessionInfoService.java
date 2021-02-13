@@ -8,7 +8,6 @@ import org.springframework.security.ldap.userdetails.InetOrgPerson;
 import org.springframework.stereotype.Component;
 
 @Component(value = "sessionInfoService")
-
 public class SessionInfoService {
 
 	@Setter
@@ -25,5 +24,9 @@ public class SessionInfoService {
 		 
 
 		return ip.getDisplayName();
+	}
+
+	public boolean isAuthenticated(){
+		return !"".equals(getFullName());
 	}
 }

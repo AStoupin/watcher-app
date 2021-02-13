@@ -82,7 +82,7 @@ public class RouteFileRegistryTest {
                 + "";
 
         RouteDefinition rd = routeDefinitionConverter.getXmlAsRouteDefinition("route2", route2);
-        assertTrue("Id incorrect", "My-File-Transfer12".equals(rd.getId()));
+        assertTrue("Id incorrect", "route2".equals(rd.getId()));
 
         String fixedXml =  routeDefinitionConverter.routeDefinitionToXml(rd);
 
