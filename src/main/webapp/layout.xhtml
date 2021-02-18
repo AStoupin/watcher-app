@@ -12,9 +12,12 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" href="/icon.png" />
+		<link rel="icon" href="#{request.contextPath}/icon.png" />
+		
+		
 		<h:outputStylesheet library="styles" name="styles.css" />
-		<h:outputStylesheet library="styles"  name="primeflex.min.css" />
+		<h:outputStylesheet library="styles" name="primeflex.min.css" />
+
 		<title><ui:insert name="title" /></title>
 
 
@@ -35,7 +38,7 @@
 			<p:panel id="basic">
 				<div class="ui-g">
 					<div class="ui-g-1 main-panel">
-						<img src="/images/logo.png" class="logo-img" />
+						<p:graphicImage name="logo.png" library="images" class="logo-img" />
 					</div>
 					<div class="ui-g-2 main-panel logo-app-name">
 						<h:outputText value="Watcher-App" />
@@ -45,9 +48,9 @@
 					<div class="ui-g-7	main-panel">
 						<h:form >
 							<p:tabMenu activeIndex="#{sessionScope['pageIndex']}">
-								<p:menuitem url="/" value="Route list" icon="pi pi-star">
+								<p:menuitem url="#{request.contextPath}" value="Route list" icon="pi pi-star">
 								</p:menuitem>
-								<p:menuitem url="/monitor" value="Route monitor"
+								<p:menuitem url="#{request.contextPath}/monitor" value="Route monitor"
 									icon="pi pi-search">
 								</p:menuitem>
 							</p:tabMenu>

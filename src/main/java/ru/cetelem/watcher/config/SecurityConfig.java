@@ -68,11 +68,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/master").fullyAuthenticated()
 		  ;
 	  
-		http.formLogin().loginPage("/login").permitAll()
+		/*http.formLogin().loginPage("/login").permitAll()
 			.failureUrl("/login?error=true")
         	.successForwardUrl("/")
 			;
-	  
+	  */
+		
+		  
+		  http.formLogin()
+		    .loginPage("/login").permitAll()
+	        .failureUrl("/login?error=true")
+	        .successForwardUrl("/");
+		  
+		  
 		http.logout().invalidateHttpSession(true)
 	  		.logoutSuccessUrl("/login").deleteCookies("JSESSIONID").permitAll();
 	  
@@ -88,7 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		if (!Boolean.parseBoolean(ldapEnabled)) 
 			log.info("LDAP security is disabled");
 		
-
+/*
 		auth.ldapAuthentication()
 				.contextSource()
 					.url(ldapUrls + ldapBaseDn)
@@ -100,6 +108,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.groupSearchBase(ldapGroupSearchBase)
 					.groupRoleAttribute(ldapGroupRoleAttribute)
 					.groupSearchFilter (ldapGroupSearchFilter)
+					*/
+		auth.ldapAuthentication()
+		.contextSource()
+			.url(ldapUrls + ldapBaseDn)
+			.managerDn(ldapSecurityPrincipal)
+			.managerPassword(ldapPrincipalPassword).
+		and()
+			.userDnPatterns(ldapUserDnPattern)
 					.userDetailsContextMapper(new InetOrgPersonContextMapper());
 
 		log.info("LDAP security:  " + ldapUrls + ldapBaseDn);

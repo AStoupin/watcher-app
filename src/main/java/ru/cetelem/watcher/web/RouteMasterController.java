@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import ru.cetelem.watcher.model.UriData;
 import ru.cetelem.watcher.service.RouteDefinitionConverter;
 
-import javax.enterprise.context.SessionScoped;
+
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
@@ -74,7 +74,7 @@ public class RouteMasterController implements Serializable {
         routeEditController.setXml(xml);
         initWizard();
         FacesContext.getCurrentInstance().getExternalContext().
-                redirect("/wizard-result");
+                redirect("wizard-result");
 
     }
 

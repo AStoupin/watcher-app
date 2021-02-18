@@ -39,7 +39,10 @@ public class RouteEditController {
 	private String refer = "/";
 	
 	public String getReferUrl() {
-		return refer; 
+		
+		
+		
+		return "/".equals(refer)?FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath() + "/" :refer;
 	}
 	
 	public boolean getIsNew() {
@@ -47,18 +50,20 @@ public class RouteEditController {
 	}
 
 	public void init() {
+		
 		log.info("init started");
-		if (FacesContext.getCurrentInstance().isPostback()){
+		if (FacesContext.getCurrentInstance().isPostback() ){
 			return;
 		}
 
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pageIndex", "-1");
 
-		this.refer = FacesContext.getCurrentInstance().getExternalContext().getRequestHeaderMap().get("referer");
-		this.refer = this.refer==null?"/":this.refer;
-				 
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
+
+		this.refer =  paramMap.get("referer");
+		this.refer = this.refer==null?"/":this.refer;
+				 
 		this.routeId = paramMap.get("routeId");
 		this.isNew = true;
 
@@ -87,6 +92,7 @@ public class RouteEditController {
 	private void initNewByTemplate(String templateId) {
 		log.info("init initNewByTemplate {}",templateId);
 		this.routeId="route-name";
+		this.refer = "/";		
 		this.xml=templateService.getTemplates().get(templateId);
 	}
 
@@ -153,8 +159,10 @@ public class RouteEditController {
 	        return "";
 		}
 
+		log.info ("return to :" + getReferUrl());
+		
     	FacesContext.getCurrentInstance().getExternalContext().
-			redirect(getReferUrl());     		
+			redirect( getReferUrl());     		
 		
 		//return "/route-list.xhtml?faces-redirect=true";
     	return "";
@@ -162,6 +170,7 @@ public class RouteEditController {
 
 	public String cancel() throws IOException {
 		log.info("save cancel {}", routeId);
+		log.info ("return to :" + getReferUrl());
     	FacesContext.getCurrentInstance().getExternalContext().
 			redirect(getReferUrl());        		
 		//return "/route-list.xhtml?faces-redirect=true";

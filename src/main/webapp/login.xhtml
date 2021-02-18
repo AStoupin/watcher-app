@@ -13,11 +13,7 @@
 
 	<ui:define name="content">
 
-		<h:form prependId="false">
-
-			<f:metadata>
-				<f:event type="preRenderView" listener="#{loginController.init()}" />
-			</f:metadata>
+		<h:form prependId="false" >
 
 			<div class="ui-g p-mt-6">
 
@@ -48,7 +44,7 @@
 					</div>
 
 					<div class="ui-g-12">
-						<p:commandButton  id="submit"  value="login" look="primary" style="width:100%" />
+						<p:commandButton  id="submit" value="Login" ajax="false"  look="primary" style="width:100%" />
 					</div>
 
 				</div>

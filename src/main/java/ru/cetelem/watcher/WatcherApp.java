@@ -23,6 +23,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.PropertySource;
 
 import ru.cetelem.watcher.service.ErrorProcessor;
 
@@ -30,6 +31,7 @@ import ru.cetelem.watcher.service.ErrorProcessor;
 @ComponentScan({"ru.cetelem.watcher.web", "ru.cetelem.watcher.service",
                  "ru.cetelem.watcher.registry", "ru.cetelem.watcher.config"})
 @ImportResource("classpath:camel-context.xml")
+@PropertySource(value= {"classpath:application.properties","file:${jboss.server.config.dir}/application.properties"}, ignoreResourceNotFound = true) 
 @Configuration
 @RewriteConfiguration
 public class WatcherApp  extends HttpConfigurationProvider 
@@ -81,6 +83,12 @@ public class WatcherApp  extends HttpConfigurationProvider
 				addRule()
 					.when(Direction.isInbound().and(Path.matches("/login")))
 					.perform(Forward.to("/login.jsf"))
+				.addRule()
+					.when(Direction.isInbound().and(Path.matches("/login?error=true")))
+					.perform(Forward.to("/login.jsf?error=true"))
+				
+					
+										
 		        .addRule()
 		          .when(Direction.isInbound().and(Path.matches("/monitor")))
 		          .perform(Forward.to("/route-monitor.jsf"))	          

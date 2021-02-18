@@ -30,7 +30,7 @@ public class LoginController {
 	public void init() throws IOException {
 		if (FacesContext.getCurrentInstance().isPostback() && sessionInfoService.getFullName() != null){
 			FacesContext.getCurrentInstance().getExternalContext().
-					redirect("/");
+					redirect(".");
 			return;
 		}
 	}
@@ -38,7 +38,7 @@ public class LoginController {
 
 	public String logout() throws IOException {
 		FacesContext.getCurrentInstance().getExternalContext().
-				redirect("/logout");
-		return "/logout";
+				redirect("logout");
+		return "logout";
 	}
 }

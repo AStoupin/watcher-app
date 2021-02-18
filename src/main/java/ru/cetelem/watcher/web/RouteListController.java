@@ -84,14 +84,14 @@ public class RouteListController {
 		 
 		DefaultMenuItem item = DefaultMenuItem.builder()
 	                .value(TemplateService.EMPTY_TEMPLATE_KEY)
-	                .url("/route-add/"+TemplateService.EMPTY_TEMPLATE_KEY)
+	                .url("route-add/"+TemplateService.EMPTY_TEMPLATE_KEY)
 	                .build();
 		 templates.getElements().add(item);
 
 
 		DefaultMenuItem itemWizard = DefaultMenuItem.builder()
 				.value(TemplateService.WIZARD_TEMPLATE_KEY)
-				.url("/master")
+				.url("master")
 				.build();
 		templates.getElements().add(itemWizard);
 		templates.getElements().add(new DefaultSeparator());
@@ -103,7 +103,7 @@ public class RouteListController {
 			 
 			  item = DefaultMenuItem.builder()
 		                .value(key)
-		                .url("/route-add/"+key)
+		                .url("route-add/"+key)
 		                .build();
 			  templates.getElements().add(item);
 		}
@@ -218,7 +218,7 @@ public class RouteListController {
     
     public String create() throws Exception {
     	FacesContext.getCurrentInstance().getExternalContext().
-			redirect("/route-add");     	
+			redirect("route-add");     	
     	
     	//return "/route-edit.xhtml?faces-redirect=true";
 		return "";
@@ -228,7 +228,7 @@ public class RouteListController {
     	if(selectedRoute.getSelectedRouteDefinition()==null)
     		return "";	
     	FacesContext.getCurrentInstance().getExternalContext().
-    		redirect(String.format("/route/%s", selectedRoute.getSelectedRouteDefinition().getId()));     	
+    		redirect(String.format("route/%s", selectedRoute.getSelectedRouteDefinition().getId()));     	
     	//return "/route-edit.xhtml?faces-redirect=true&routeId=" + selectedRoute.getSelectedRouteDefinition().getId();
     	return "";
     }

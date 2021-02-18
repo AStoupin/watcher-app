@@ -4,12 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>web-app</groupId>
 	<artifactId>watcher-app</artifactId>
-	<version>0.0.5</version>
+	<version>0.0.6</version>
+	<packaging>war</packaging>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.4.RELEASE</version>
+		<version>2.2.5.RELEASE</version>
 		<relativePath />
 	</parent>
 
@@ -18,72 +19,83 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<joinfaces.version>4.4.2</joinfaces.version>
-
-		<camel.version>2.24.2</camel.version>
+        <joinfaces.version>4.3.8</joinfaces.version>
+		<camel.version>2.17.1</camel.version>
 	</properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.joinfaces</groupId>
-				<artifactId>joinfaces-dependencies</artifactId>
-				<version>${joinfaces.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 
-			<!-- Spring Boot BOM -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>2.1.8.RELEASE</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- Camel BOM -->
-			<dependency>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-spring-boot-dependencies</artifactId>
-				<version>${camel.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-
-	</dependencyManagement>
 
 	<dependencies>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+ 			<scope>provided</scope>
+		</dependency>
+
+
+		
+		<dependency>
+		    <groupId>org.primefaces</groupId>
+		    <artifactId>primefaces</artifactId>
+		    <version>8.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.ocpsoft.rewrite</groupId>
+		    <artifactId>rewrite-integration-spring</artifactId>
+		    <version>3.4.4.Final</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.ocpsoft.rewrite/rewrite-config-annotations -->
+		<dependency>
+		    <groupId>org.ocpsoft.rewrite</groupId>
+		    <artifactId>rewrite-config-annotations</artifactId>
+		    <version>3.4.4.Final</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.ocpsoft.rewrite/rewrite-integration-faces -->
+		<dependency>
+		    <groupId>org.ocpsoft.rewrite</groupId>
+		    <artifactId>rewrite-integration-faces</artifactId>
+		    <version>3.4.4.Final</version>
+		</dependency>
+		
+		<dependency>
+		   <groupId>org.ocpsoft.rewrite</groupId>
+		   <artifactId>rewrite-servlet</artifactId>
+		   <version>3.4.4.Final</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
+		<dependency>
+		    <groupId>javax.enterprise</groupId>
+		    <artifactId>cdi-api</artifactId>
+		    <version>2.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-api -->
+		<dependency>
+		    <groupId>com.sun.faces</groupId>
+		    <artifactId>jsf-api</artifactId>
+		    <version>2.2.20</version>
+		</dependency>
+
+
+<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-
-
-		<dependency>
-			<groupId>org.joinfaces</groupId>
-			<artifactId>primefaces-spring-boot-starter</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.joinfaces</groupId>
-			<artifactId>rewrite-spring-boot-starter</artifactId>
-		</dependency>
-
-
-
-
-
-
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jaxb</groupId>
-			<artifactId>jaxb-runtime</artifactId>
-		</dependency>
+-->
 
 
 		<dependency>
@@ -141,12 +153,14 @@
 		</dependency>
 
 
-
+<!-- 
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>security-spring-boot-starter</artifactId>
+						<version>4.3.8</version>
+			
 		</dependency>
-
+ -->
 
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
@@ -159,11 +173,13 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-spring-boot-starter</artifactId>
+			  <version>${camel.version}</version>	
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-metrics</artifactId>
+			  <version>${camel.version}</version>	
 		</dependency>
 
 
@@ -171,7 +187,7 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-ftp</artifactId>
-
+			  <version>${camel.version}</version>	
 		</dependency>
 
 		<!-- Camel SMB support -->
@@ -181,6 +197,13 @@
 			<version>2.24.2</version>
 		</dependency>
 
+		<dependency>
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+					<version>2.3</version>
+					<scope>provided</scope>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -211,11 +234,37 @@
 
 
 	<build>
+		<resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 		<plugins>
+
+        
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Logging-Profile>watcher-app</Logging-Profile>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>		
+			
+			
+
 		</plugins>
 	</build>
 

@@ -2,6 +2,9 @@ package ru.cetelem.watcher.service;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Optional;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.security.ldap.userdetails.InetOrgPerson;
@@ -23,7 +26,7 @@ public class SessionInfoService {
 
 		 
 
-		return ip.getDisplayName();
+		return Optional.ofNullable(ip.getDisplayName()).orElseGet(()->ip.getSn());
 	}
 
 	public boolean isAuthenticated(){
