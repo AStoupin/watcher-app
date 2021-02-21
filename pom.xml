@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>web-app</groupId>
 	<artifactId>watcher-app</artifactId>
-	<version>0.0.6</version>
+	<version>0.0.7</version>
 	<packaging>war</packaging>
 
 	<parent>
@@ -195,6 +195,36 @@
 			<artifactId>camel-jcifs</artifactId>
 			<version>2.24.2</version>
 		</dependency>
+
+		<!-- Camel ZIP support -->		
+		<dependency>
+		  	<groupId>org.apache.camel</groupId>
+		  	<artifactId>camel-zipfile	</artifactId>
+			<version>${camel.version}</version>			  
+		</dependency>
+		
+		
+		<!-- Camel xquery support -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-saxon</artifactId>
+			<version>${camel.version}</version>					
+		</dependency>
+		
+		<!-- Camel OS exec support -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-exec</artifactId>
+			<version>${camel.version}</version>					
+		</dependency>		
+		
+		<!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
+		<dependency>
+		    <groupId>commons-net</groupId>
+		    <artifactId>commons-net</artifactId>
+		    <version>3.6</version>
+		</dependency>
+
 
 		<dependency>
 					<groupId>javax.servlet</groupId>
