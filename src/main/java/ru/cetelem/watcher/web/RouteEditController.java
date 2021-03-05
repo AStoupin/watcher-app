@@ -29,6 +29,7 @@ public class RouteEditController {
 	
 	@Autowired
 	TemplateService templateService;
+
 	
 
 	private String xml;
@@ -56,6 +57,9 @@ public class RouteEditController {
 			return;
 		}
 
+		
+		
+		
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pageIndex", "-1");
 
 		FacesContext context = FacesContext.getCurrentInstance();

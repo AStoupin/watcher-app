@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>web-app</groupId>
 	<artifactId>watcher-app</artifactId>
-	<version>0.0.7</version>
+	<version>0.0.8</version>
 	<packaging>war</packaging>
 
 	<parent>
@@ -25,7 +25,10 @@
 
 
 	<dependencies>
+	
 
+    
+    
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -89,12 +92,12 @@
 		</dependency>
 
 
-<!--
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
--->
+
 
 
 		<dependency>
