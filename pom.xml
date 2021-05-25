@@ -19,7 +19,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<camel.version>2.17.1</camel.version>
+		<camel.version>2.18.1</camel.version>
+		<org.ocpsoft>3.4.4.Final</org.ocpsoft>
+		
 	</properties>
 
 
@@ -52,14 +54,14 @@
 		<dependency>
 		    <groupId>org.ocpsoft.rewrite</groupId>
 		    <artifactId>rewrite-integration-spring</artifactId>
-		    <version>3.4.4.Final</version>
+		    <version>${org.ocpsoft}</version>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.ocpsoft.rewrite/rewrite-config-annotations -->
 		<dependency>
 		    <groupId>org.ocpsoft.rewrite</groupId>
 		    <artifactId>rewrite-config-annotations</artifactId>
-		    <version>3.4.4.Final</version>
+		    <version>${org.ocpsoft}</version>
 		    <scope>test</scope>
 		</dependency>
 		
@@ -67,13 +69,13 @@
 		<dependency>
 		    <groupId>org.ocpsoft.rewrite</groupId>
 		    <artifactId>rewrite-integration-faces</artifactId>
-		    <version>3.4.4.Final</version>
+		    <version>${org.ocpsoft}</version>
 		</dependency>
 		
 		<dependency>
 		   <groupId>org.ocpsoft.rewrite</groupId>
 		   <artifactId>rewrite-servlet</artifactId>
-		   <version>3.4.4.Final</version>
+		   <version>${org.ocpsoft}</version>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
